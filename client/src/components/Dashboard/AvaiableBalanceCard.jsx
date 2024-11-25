@@ -1,22 +1,25 @@
+import React from 'react';
+
 function AvaiableBalanceCard() {
    return (
-      <div className="bg-sky-200 shadow-lg rounded-xl p-4 flex flex-col w-full sm:max-w-sm lg:max-w-md mx-auto">
-         <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-500 text-sm lg:text-base">Available Balance</span>
-            <label className="relative inline-flex items-center cursor-pointer">
-               <input type="checkbox" className="sr-only peer" />
-               <div className="w-8 h-5 bg-gray-300 rounded-full peer-checked:bg-blue-500 relative">
-                  <div className="w-4 h-4 bg-white rounded-full absolute left-0 peer-checked:translate-x-full transition-transform"></div>
-               </div>
-            </label>
+      <div className="bg-sky-200 shadow-lg rounded-xl p-3 mt-2 flex flex-col sm:w-11/12 xm:w-11/12">
+         <div className="flex justify-between items-center mb-2">
+            <span className="text-gray-500 text-sm">Available balance</span>
+            <div className="flex items-center">
+               <span className="text-gray-500 text-sm mr-2">Credit</span>
+               <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" />
+                  <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:after:translate-x-4 peer-checked:after:bg-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+               </label>
+            </div>
          </div>
-         <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">$12,234</div>
+         <div className="text-4xl font-bold mb-4 sm:text-xl md:text-2xl">$12,234</div>
          <div className="flex justify-between items-center">
-            <span className="text-gray-500 text-sm">**** 4532</span>
+            <span className="text-gray-500 text-lg">**** 4532</span>
             <img
                src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
                alt="Mastercard Logo"
-               className="w-8 sm:w-10 object-contain"
+               className="w-12"
             />
          </div>
       </div>

@@ -1,4 +1,3 @@
-// MainDashBoard.js
 import AvaiableBalanceCard from './Dashboard/AvaiableBalanceCard';
 import TrackFinance from './Dashboard/TrackFinance';
 import Categories from './Dashboard/Catagories';
@@ -12,22 +11,30 @@ function MainDashBoard() {
          {/* First Column (Center Section) */}
          <div className="lg:col-span-2 space-y-4">
             {/* Top Row: Available Balance & Income and Spendings */}
-            <div className="grid grid-cols-2 xm:grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-3">
                <AvaiableBalanceCard />
                <IncomeAndSpendings />
             </div>
 
             {/* Middle Row: Monthly Report Graph */}
-            <MonthlyReportBarGraph />
+            <div className="overflow-hidden">
+               <MonthlyReportBarGraph />
+            </div>
 
             {/* Bottom Row: Weekly Report Graph */}
-            <WeeklyReportBarGraph />
+            <div className="overflow-hidden">
+               <WeeklyReportBarGraph />
+            </div>
          </div>
 
          {/* Third Column (Right Section) */}
          <div className="space-y-6">
-            <TrackFinance />
-            <Categories />
+            <div className="overflow-hidden">
+               <TrackFinance />
+            </div>
+            <div className="overflow-hidden">
+               <Categories />
+            </div>
          </div>
       </div>
    );

@@ -2,7 +2,6 @@ import React from 'react';
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 
 function Categories() {
-   // Data for the Pie Chart
    const data = [
       { name: 'Personal', value: 26, color: '#ff6b6b' },
       { name: 'Shopping', value: 30, color: '#845ec2' },
@@ -10,7 +9,6 @@ function Categories() {
       { name: 'Holidays', value: 10, color: '#00c9a7' },
    ];
 
-   // Transaction Details
    const transactions = [
       { label: 'Personal', value: '-500 $', count: '14 transactions', color: '#ff6b6b' },
       { label: 'Shopping', value: '-410 $', count: '10 transactions', color: '#845ec2' },
@@ -19,13 +17,12 @@ function Categories() {
    ];
 
    return (
-      <div className="bg-[#1a1a2e] text-white p-6 rounded-lg shadow-md w-96">
-         {/* Title */}
-         <h2 className="text-xl font-semibold mb-6">Categories</h2>
+      <div className="bg-[#1a1a2e] text-white p-4 sm:p-6 rounded-lg shadow-md w-full sm:w-full md:w-full">
+         <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Categories</h2>
 
          {/* Donut Chart */}
          <div className="flex justify-center mb-6">
-            <PieChart width={200} height={200}>
+            <PieChart width={170} height={170} className="sm:w-[200px] sm:h-[200px] w-full h-full">
                <Pie data={data} dataKey="value" nameKey="name" innerRadius={50} outerRadius={80} paddingAngle={5}>
                   {data.map((entry, index) => (
                      <Cell key={`cell-${index}`} fill={entry.color} />
@@ -35,19 +32,20 @@ function Categories() {
          </div>
 
          {/* Transaction List */}
-         <div className="space-y-4">
+         <div className="space-y-3 sm:space-y-4">
             {transactions.map((transaction, index) => (
                <div key={index} className="flex justify-between items-center">
-                  {/* Label */}
                   <div className="flex items-center">
-                     <div className="w-4 h-4 rounded-full mr-3" style={{ backgroundColor: transaction.color }}></div>
+                     <div
+                        className="w-3 h-3 sm:w-4 sm:h-4 rounded-full mr-2 sm:mr-3"
+                        style={{ backgroundColor: transaction.color }}
+                     ></div>
                      <div>
-                        <p className="text-sm font-medium">{transaction.label}</p>
+                        <p className="text-xs sm:text-sm font-medium">{transaction.label}</p>
                         <p className="text-xs text-gray-400">{transaction.count}</p>
                      </div>
                   </div>
-                  {/* Value */}
-                  <p className="text-red-500 font-bold">{transaction.value}</p>
+                  <p className="text-red-500 text-xs sm:text-sm font-bold">{transaction.value}</p>
                </div>
             ))}
          </div>
