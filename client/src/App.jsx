@@ -11,19 +11,19 @@ function App() {
    const [isTransactionsVisible, setIsTransactionsVisible] = useState(false);
 
    const handleIsDashboardVisible = () => {
-      setIsDashboardVisible((prev) => !prev);
+      setIsDashboardVisible(true);
       if (isExpensesVisible) setIsExpensesVisible(false);
       if (isTransactionsVisible) setIsTransactionsVisible(false);
    };
 
    const handleIsExpensesVisible = () => {
-      setIsExpensesVisible((prev) => !prev);
+      setIsExpensesVisible(true);
       if (isDashboardVisible) setIsDashboardVisible(false);
       if (isTransactionsVisible) setIsTransactionsVisible(false);
    };
 
    const handleIsTransactionsVisible = () => {
-      setIsTransactionsVisible((prev) => !prev);
+      setIsTransactionsVisible(true);
       if (isDashboardVisible) setIsDashboardVisible(false);
       if (isExpensesVisible) setIsExpensesVisible(false);
    };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaTachometerAlt, FaWallet, FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa';
 
-function SideBar() {
+function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransactionsVisible }) {
    return (
       <div className="h-full w-full lg:w-64 bg-gray-800 text-white flex flex-col justify-between">
          {/*  Top Section  */}
@@ -11,20 +11,29 @@ function SideBar() {
                alt="Profile"
                className="w-24 h-24 rounded-full border-4 border-yellow-400"
             />
-            <h2 className="mt-4 text-lg font-semibold">Muhammad Umair</h2>
+            <h2 className="mt-4 pl-3 text-lg font-semibold">Muhammad Umair</h2>
          </div>
 
          {/* Center Section: Options */}
          <div className="flex flex-col items-start mt-8 space-y-4 px-2 bg-slate-700 p-2 m-3 h-1/2 rounded-lg">
-            <button className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row">
+            <button
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row"
+               onClick={() => setIsDashboardVisible(true)}
+            >
                <FaTachometerAlt className="mr-0 sm:mr-4 mb-2 sm:mb-0" size={16} />
                <span className="text-sm sm:text-base text-center sm:text-left">Dashboard</span>
             </button>
-            <button className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row">
+            <button
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row"
+               onClick={() => setIsExpensesVisible(true)}
+            >
                <FaWallet className="mr-0 sm:mr-4 mb-2 sm:mb-0" size={16} />
                <span className="text-sm sm:text-base text-center sm:text-left">Expenses</span>
             </button>
-            <button className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row">
+            <button
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded flex-col sm:flex-row"
+               onClick={() => setIsTransactionsVisible(true)}
+            >
                <FaExchangeAlt className="mr-0 sm:mr-4 mb-2 sm:mb-0" size={16} />
                <span className="text-sm sm:text-base text-center sm:text-left">Transactions</span>
             </button>
