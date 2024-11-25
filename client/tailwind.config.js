@@ -7,6 +7,12 @@ export default {
 				"caros-light": ['"Caros Light"', "sans-serif"],
 			},
 		},
+		screens: {
+			sm: "640px", // Mobile
+			md: "768px", // Tablet
+			lg: "1024px", // Desktop
+			xl: "1280px",
+		},
 	},
 	plugins: [],
 };
