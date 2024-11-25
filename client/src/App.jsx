@@ -6,32 +6,38 @@ import MainExpenses from './components/MainExpenses';
 import MainTransaction from './components/MainTransaction';
 
 function App() {
+   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
    const [isDashboardVisible, setIsDashboardVisible] = useState(true);
    const [isExpensesVisible, setIsExpensesVisible] = useState(false);
    const [isTransactionsVisible, setIsTransactionsVisible] = useState(false);
 
+   // Toggle sidebar visibility
+   const toggleSidebar = () => {
+      setIsSidebarVisible(!isSidebarVisible);
+   };
+
    const handleIsDashboardVisible = () => {
       setIsDashboardVisible(true);
-      if (isExpensesVisible) setIsExpensesVisible(false);
-      if (isTransactionsVisible) setIsTransactionsVisible(false);
+      setIsExpensesVisible(false);
+      setIsTransactionsVisible(false);
    };
 
    const handleIsExpensesVisible = () => {
+      setIsDashboardVisible(false);
       setIsExpensesVisible(true);
-      if (isDashboardVisible) setIsDashboardVisible(false);
-      if (isTransactionsVisible) setIsTransactionsVisible(false);
+      setIsTransactionsVisible(false);
    };
 
    const handleIsTransactionsVisible = () => {
+      setIsDashboardVisible(false);
+      setIsExpensesVisible(false);
       setIsTransactionsVisible(true);
-      if (isDashboardVisible) setIsDashboardVisible(false);
-      if (isExpensesVisible) setIsExpensesVisible(false);
    };
 
    return (
-      <div className="bg-[#14181d] min-h-screen flex">
+      <div className="main-container">
          {/* Sidebar */}
-         <div className="w-52 lg:w-64">
+         <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
             <SideBar
                setIsDashboardVisible={handleIsDashboardVisible}
                setIsExpensesVisible={handleIsExpensesVisible}
@@ -39,8 +45,23 @@ function App() {
             />
          </div>
 
+         {/* Toggling Button */}
+         <div className="absolute top-2 left-4 z-50 bg-slate-700 p-1 rounded-lg">
+            <button className="text-white focus:outline-none" onClick={toggleSidebar}>
+               <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+               </svg>
+            </button>
+         </div>
+
          {/* Main Content */}
-         <div className="flex-grow w-full">
+         <div className="content">
             {isDashboardVisible && <MainDashBoard />}
             {isExpensesVisible && <MainExpenses />}
             {isTransactionsVisible && <MainTransaction />}

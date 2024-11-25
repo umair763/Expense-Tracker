@@ -1,11 +1,45 @@
-/* App.css or index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* App.css */
+/* Reset body and html */
 body,
 html {
-   margin: 0; /* Ensure no default browser margin */
+   margin: 0;
    padding: 0;
+   height: 100%; /* Full height */
+   overflow: hidden; /* Prevent unwanted scrolling */
+}
+
+/* Main container for layout */
+.main-container {
+   position: relative; /* Relative to allow absolutely positioned sidebar */
+   height: 100vh; /* Full height */
+   width: 100%; /* Full width */
+   background-color: #14181d; /* Dashboard background color */
+   display: flex;
+   flex-direction: column; /* Optional if you want stacking behavior */
+   overflow: hidden;
+}
+
+/* Sidebar styles */
+.sidebar {
+   width: 16rem; /* Fixed width */
+   height: 100vh; /* Full height of viewport */
+   background-color: #14181d; /* Sidebar background */
+   position: fixed; /* Always on top */
+   top: 0;
+   left: 0;
+   z-index: 50; /* Ensures it stays above content */
+   transform: translateX(-100%); /* Hidden by default */
+   transition: transform 0.3s ease-in-out; /* Smooth toggling */
+}
+
+.sidebar.visible {
+   transform: translateX(0); /* Shown */
+}
+
+/* Main content */
+.content {
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow-y: auto; /* Enable scrolling for the content */
+   position: relative;
+   z-index: 10; /* Below the sidebar */
 }

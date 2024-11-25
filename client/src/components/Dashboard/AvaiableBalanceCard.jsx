@@ -13,7 +13,7 @@ function AvaiableBalanceCard() {
                </label>
             </div>
          </div>
-         <div className="text-4xl font-bold mb-4 sm:text-xl md:text-2xl">$12,234</div>
+         <div className="text-2xl font-bold mb-4 sm:text-3xl md:text-4xl">$12,234</div>
          <div className="flex justify-between items-center">
             <span className="text-gray-500 text-xs sm:text-lg">**** 4532</span>
             <img
