@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+
 import './App.css';
 import SideBar from './components/SideBar';
 import MainDashBoard from './components/MainDashBoard';
@@ -10,6 +11,13 @@ function App() {
    const [isDashboardVisible, setIsDashboardVisible] = useState(true);
    const [isExpensesVisible, setIsExpensesVisible] = useState(false);
    const [isTransactionsVisible, setIsTransactionsVisible] = useState(false);
+   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
+
+   useEffect(() => {
+      const handleResize = () => setIsSmallScreen(window.innerWidth <= 500);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+   }, []);
 
    // Toggle sidebar visibility
    const toggleSidebar = () => {
@@ -37,14 +45,15 @@ function App() {
    return (
       <div className="main-container">
          {/* Sidebar */}
-         <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
-            <SideBar
-               setIsDashboardVisible={handleIsDashboardVisible}
-               setIsExpensesVisible={handleIsExpensesVisible}
-               setIsTransactionsVisible={handleIsTransactionsVisible}
-            />
+         <div className="md:w-1/3 lg:w-1/5">
+            <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
+               <SideBar
+                  setIsDashboardVisible={handleIsDashboardVisible}
+                  setIsExpensesVisible={handleIsExpensesVisible}
+                  setIsTransactionsVisible={handleIsTransactionsVisible}
+               />
+            </div>
          </div>
-
          {/* Toggling Button */}
          <div className="toggle-btn">
             <button className="text-white focus:outline-none" onClick={toggleSidebar}>
@@ -62,6 +71,11 @@ function App() {
 
          {/* Main Content */}
          <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
+            {isSmallScreen && (
+               <div className="mt-5 ml-24 pd-4 text-white">
+                  <h1>Welcome, Muhammad Umair</h1>
+               </div>
+            )}
             {isDashboardVisible && <MainDashBoard />}
             {isExpensesVisible && <MainExpenses />}
             {isTransactionsVisible && <MainTransaction />}

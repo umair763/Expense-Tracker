@@ -18,7 +18,6 @@ html {
 
 /* Sidebar styles */
 .sidebar {
-   width: 16rem; /* Fixed width */
    height: 100%; /* Full height */
    background-color: #1a1d21; /* Sidebar background */
    position: fixed; /* Overlays on mobile */
@@ -34,13 +33,20 @@ html {
 }
 
 /* For larger screens (Tablet & Desktop) */
-@media (min-width: 768px) {
+@media (min-width: 500px) {
    .sidebar {
       transform: translateX(0); /* Always visible */
       position: relative; /* Non-overlay behavior */
    }
 }
 
+@media (max-width: 650px) {
+   .sidebar img,
+   .sidebar h2,
+   .sidebar span {
+      display: none; /* Hide image, name, and text labels */
+   }
+}
 /* Toggle button */
 .toggle-btn {
    position: fixed;
@@ -60,4 +66,12 @@ html {
    background-color: #24292f;
 }
 
-/* 1026 1286 */
+@media (min-width: 500px) {
+   .toggle-btn {
+      display: none;
+   }
+}
+
+.HIDE{
+   display: none;
+}
