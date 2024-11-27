@@ -14,7 +14,7 @@ function TrackFinance() {
          <div className="space-y-4">
             {data.map((item, index) => (
                <div key={index}>
-                  <div className="flex justify-between mb-2 text-xs sm:text-sm md:text-md lg:text-lg md:p-2 lg:p-3">
+                  <div className="flex justify-between mb-2 text-xs sm:text-sm md:text-md ">
                      <span>{item.label}</span>
                      <span>{item.value.toLocaleString()}</span>
                   </div>
