@@ -167,7 +167,7 @@ const TransactionList = () => {
          </div>
 
          {/* Transactions Table */}
-         <div className="bg-gray-700 rounded-lg shadow-md overflow-x-auto text-white text-sm md:text-md lg:text-lg">
+         <div className="bg-gray-700 rounded-lg shadow-md overflow-x-auto text-white text-sm">
             <table className="table-auto w-full text-left border-collapse">
                <thead className="bg-gray-800 text-sm text-white uppercase">
                   <tr>
@@ -184,7 +184,7 @@ const TransactionList = () => {
                   </tr>
                </thead>
                <tbody>
-                  {currentRecords.map((transaction,index) => (
+                  {currentRecords.map((transaction, index) => (
                      <tr key={index} className="border-b hover:bg-gray-500">
                         <td className="p-4">{transaction.id}</td>
                         <td className="p-4">{transaction.date}</td>

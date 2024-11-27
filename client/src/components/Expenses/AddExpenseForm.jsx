@@ -53,7 +53,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
 
    return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-         <div className="bg-slate-200 rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
+         <div className="bg-slate-100 rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
             <div className="flex justify-between items-center mb-4">
                <h2 className="text-xl font-semibold text-gray-800">Add Expense</h2>
                <button onClick={onClose} className="text-gray-500 hover:text-gray-800 focus:outline-none">

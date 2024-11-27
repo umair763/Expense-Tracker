@@ -5,16 +5,18 @@ import AddTransactionAndReport from './Trasactions/AddTransactionAndReport';
 
 const MainTransaction = () => {
    return (
-      <div className="mt-2 p-4 sm:p-3 lg:p-4">
+      <div className="mt-2 p-4 sm:p-3 lg:p-4 w-full">
          {/* Top Section */}
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+         <div className="flex">
             {/* Weekly Report Bar Graph */}
-            <div className=" rounded-lg shadow-md">
+            <div className="w-4/5">
                <WeeklyReportBarGraph />
             </div>
 
-            {/* Add Transaction and Report */}
-            <AddTransactionAndReport />
+            <div className="w-1/2">
+               {/* Add Transaction and Report */}
+               <AddTransactionAndReport />
+            </div>
          </div>
 
          {/* Transactions Record */}
