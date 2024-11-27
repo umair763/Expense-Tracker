@@ -46,28 +46,22 @@ function App() {
          </div>
 
          {/* Toggling Button */}
-         <div className="flex space-x-64 space-y-3">
-            {' '}
-            <div className="absolute top-2 left-4 z-50 bg-slate-700 p-1 rounded-lg w-16 flex justify-center">
-               <button className="text-white focus:outline-none" onClick={toggleSidebar}>
-                  <svg
-                     className="w-6 h-6"
-                     fill="none"
-                     stroke="currentColor"
-                     viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg"
-                  >
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-                  </svg>
-               </button>
-            </div>
-            <div className="text-white font-extrabold">
-               <h4>Welcome, Muhammad Umair</h4>
-            </div>
+         <div className="toggle-btn">
+            <button className="text-white focus:outline-none" onClick={toggleSidebar}>
+               <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+               </svg>
+            </button>
          </div>
 
          {/* Main Content */}
-         <div className="content">
+         <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
             {isDashboardVisible && <MainDashBoard />}
             {isExpensesVisible && <MainExpenses />}
             {isTransactionsVisible && <MainTransaction />}
