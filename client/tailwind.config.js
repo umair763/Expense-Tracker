@@ -4,7 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				"caros-light": ['"Caros Light"', "sans-serif"],
+				"Hammersmith One": ["Hammersmith One", "sans-serif"],
 			},
 		},
 		screens: {

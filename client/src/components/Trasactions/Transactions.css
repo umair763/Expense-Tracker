@@ -1,0 +1,22 @@
+@font-face {
+   font-family: 'Poppins';
+   src: url('path/to/your/font/Poppins-Regular.ttf') format('truetype'),
+      url('path/to/your/font/Poppins-Regular.woff') format('woff'),
+      url('path/to/your/font/Poppins-Regular.woff2') format('woff2');
+}
+
+@font-face {
+   font-family: 'Hammersmith One';
+   src: url('path/to/your/font/hammersmith-one.ttf') format('truetype'),
+      url('path/to/your/font/hammersmith-one.woff') format('woff'),
+      url('path/to/your/font/hammersmith-one.woff2') format('woff2');
+   font-display: swap; /* Fallback font until the custom font is loaded */
+}
+
+/* body {
+   font-family: 'Poppins', sans-serif;
+} */
+
+body {
+   font-family: 'hammersmith One', sans-serif;
+}
