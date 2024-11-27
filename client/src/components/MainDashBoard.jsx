@@ -7,7 +7,7 @@ import IncomeAndSpendings from './Dashboard/IncomeAndSpendings';
 
 function MainDashBoard() {
    return (
-      <div className=" w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
+      <div className=" w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2 mt-2">
          {/* First Column (Center Section) */}
          <div className="lg:col-span-2 space-y-4">
             {/* Top Row: Available Balance & Income and Spendings */}

@@ -3,41 +3,37 @@ import React, { useState } from 'react';
 const data = [
    { date: '12th Jan 2025', item: 'House Rent', category: 'Rent', amount: '18,000.00', recordedDate: '30th Jan 2025' },
    {
-      date: '12th Jan 2025',
       item: 'Internet',
       category: 'Mobile & Internet',
       amount: '1500.00',
       recordedDate: '30th Jan 2025',
    },
    {
-      date: '12th Jan 2025',
       item: 'Grocery',
       category: 'Food & Grocery',
       amount: '10,000.00',
       recordedDate: '30th Jan 2025',
    },
    {
-      date: '12th Jan 2025',
       item: 'Power',
       category: 'Utility Bills',
       amount: '1500.00',
       recordedDate: '30th Jan 2025',
    },
-   { date: '14th Jan 2025', item: 'Gas', category: 'Utility Bills', amount: '400.00', recordedDate: '30th Jan 2025' },
-   { date: '15th Jan 2025', item: 'Bike', category: 'EMI', amount: '38,000.00', recordedDate: '30th Jan 2025' },
-   { date: '15th Jan 2025', item: 'Personal Loan', category: 'EMI', amount: '6,000.00', recordedDate: '30th Jan 2025' },
-   { date: '16th Jan 2025', item: 'Auto', category: 'Commute', amount: '100.00', recordedDate: '30th Jan 2025' },
+   { item: 'Gas', category: 'Utility Bills', amount: '400.00', recordedDate: '30th Jan 2025' },
+   { item: 'Bike', category: 'EMI', amount: '38,000.00', recordedDate: '30th Jan 2025' },
+   { item: 'Personal Loan', category: 'EMI', amount: '6,000.00', recordedDate: '30th Jan 2025' },
+   { item: 'Auto', category: 'Commute', amount: '100.00', recordedDate: '30th Jan 2025' },
    {
-      date: '17th Jan 2025',
       item: 'Train Tickets',
       category: 'Commute',
       amount: '500.00',
       recordedDate: '30th Jan 2025',
    },
-   { date: '17th Jan 2025', item: 'Clothing', category: 'Clothing', amount: '1240.00', recordedDate: '30th Jan 2025' },
-   { date: '18th Jan 2025', item: 'Injury', category: 'Repair', amount: '600.00', recordedDate: '30th Jan 2025' },
-   { date: '19th Jan 2025', item: 'Momos', category: 'Snacks', amount: '250.00', recordedDate: '30th Jan 2025' },
-   { date: '20th Jan 2025', item: 'David', category: 'Transfers', amount: '2500.00', recordedDate: '30th Jan 2025' },
+   { item: 'Clothing', category: 'Clothing', amount: '1240.00', recordedDate: '30th Jan 2025' },
+   { item: 'Injury', category: 'Repair', amount: '600.00', recordedDate: '30th Jan 2025' },
+   { item: 'Momos', category: 'Snacks', amount: '250.00', recordedDate: '30th Jan 2025' },
+   { item: 'David', category: 'Transfers', amount: '2500.00', recordedDate: '30th Jan 2025' },
 ];
 
 function ExpensesRecord() {
@@ -58,8 +54,7 @@ function ExpensesRecord() {
          <div className="overflow-x-auto">
             <table className="min-w-full border-collapse table-auto text-sm">
                <thead>
-                  <tr className="text-left border-b border-gray-700 text-xs sm:text-sm lg:text-lg">
-                     <th className="py-3 px-2 sm:px-4">Transaction Date</th>
+                  <tr className="text-left border-b border-gray-700 text-xs sm:text-sm lg:text-lg p-0 m-0">
                      <th className="py-3 px-2 sm:px-4">Item</th>
                      <th className="py-3 px-2 sm:px-4">Category</th>
                      <th className="py-3 px-2 sm:px-4">Amount</th>
@@ -72,7 +67,6 @@ function ExpensesRecord() {
                         key={index}
                         className="border-b border-gray-800 hover:bg-gray-800 text-xs sm:text-sm lg:text-lg"
                      >
-                        <td className="py-3 px-2 sm:px-4">{record.date}</td>
                         <td className="py-3 px-2 sm:px-4">{record.item}</td>
                         <td className="py-3 px-2 sm:px-4">{record.category}</td>
                         <td className="py-3 px-2 sm:px-4 text-red-500 font-semibold">{record.amount}</td>

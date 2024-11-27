@@ -15,34 +15,34 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
          </div>
 
          {/* Navigation */}
-         <div className="flex flex-col items-start mt-8 space-y-4 px-2 bg-slate-700 p-2 m-3 h-1/2 rounded-lg">
+         <div className="flex flex-col items-start  mt-8 space-y-4 px-2 bg-slate-700 p-2 m-3 h-1/2 rounded-lg">
             <button
-               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start"
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start text-left"
                onClick={setIsDashboardVisible}
             >
-               <FaTachometerAlt className="mr-2" size={16} />
+               <FaTachometerAlt className="mr-4" size={16} />
                <span className="flex-grow">Dashboard</span>
             </button>
             <button
-               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start"
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start text-left"
                onClick={setIsExpensesVisible}
             >
-               <FaWallet className="mr-2" size={16} />
+               <FaWallet className="mr-4" size={16} />
                <span className="flex-grow">Expenses</span>
             </button>
             <button
-               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start"
+               className="w-full flex items-center py-2 px-2 hover:bg-gray-600 rounded justify-start text-left"
                onClick={setIsTransactionsVisible}
             >
-               <FaExchangeAlt className="mr-2" size={16} />
+               <FaExchangeAlt className="mr-4" size={16} />
                <span className="flex-grow">Transactions</span>
             </button>
          </div>
 
          {/* Logout */}
          <div className="flex flex-col items-start p-4">
-            <button className="w-full flex items-center py-2 px-2 hover:bg-red-700 text-red-500 rounded justify-start">
-               <FaSignOutAlt className="mr-2" size={20} />
+            <button className="w-full flex items-center py-2 px-2 hover:bg-red-700 text-red-500 rounded justify-start text-left">
+               <FaSignOutAlt className="mr-4" size={20} />
                <span className="flex-grow">Sign Out</span>
             </button>
          </div>

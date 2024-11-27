@@ -17,7 +17,7 @@ function Categories() {
    ];
 
    return (
-      <div className="bg-[#1a1a2e] text-white p-4 sm:p-6 rounded-lg shadow-md w-full sm:w-full md:w-full">
+      <div className="bg-[#1a1a2e] text-white p-4 sm:p-6 rounded-lg shadow-md w-full sm:w-full md:w-full ">
          <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Categories</h2>
 
          {/* Donut Chart */}
@@ -32,17 +32,17 @@ function Categories() {
          </div>
 
          {/* Transaction List */}
-         <div className="space-y-3 sm:space-y-4">
+         <div className="space-y-3 sm:space-y-4 ">
             {transactions.map((transaction, index) => (
                <div key={index} className="flex justify-between items-center">
                   <div className="flex items-center">
                      <div
-                        className="w-3 h-3 sm:w-4 sm:h-4 rounded-full mr-2 sm:mr-3"
+                        className="w-3 h-3 sm:w-4 sm:h-4 rounded-full mr-2 sm:mr-3 "
                         style={{ backgroundColor: transaction.color }}
                      ></div>
                      <div>
-                        <p className="text-xs sm:text-sm font-medium">{transaction.label}</p>
-                        <p className="text-xs text-gray-400">{transaction.count}</p>
+                        <p className="text-xs sm:text-sm md:text-md lg:text-lg sm:p-0 md:p-1 lg:p-1">{transaction.label}</p>
+                        <p className="text-xs sm:text-sm md:text-md lg:text-lg text-gray-400 ">{transaction.count}</p>
                      </div>
                   </div>
                   <p className="text-red-500 text-xs sm:text-sm font-bold">{transaction.value}</p>

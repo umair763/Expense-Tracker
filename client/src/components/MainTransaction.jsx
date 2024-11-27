@@ -5,7 +5,7 @@ import AddTransactionAndReport from './Trasactions/AddTransactionAndReport';
 
 const MainTransaction = () => {
    return (
-      <div className="mt-8 p-4 sm:p-3 lg:p-4">
+      <div className="mt-2 p-4 sm:p-3 lg:p-4">
          {/* Top Section */}
          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {/* Weekly Report Bar Graph */}
