@@ -12,15 +12,15 @@ function MonthlyReportBarGraph() {
    ];
 
    return (
-      <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md w-full">
+      <div className="bg-slate-200 text-black p-6 rounded-lg shadow-md w-full">
          {/* Title */}
          <h2 className="text-lg font-semibold mb-4">Day-to-Day Expenses</h2>
 
          {/* Bar Chart */}
          <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data} margin={{ top: 10, right: 5, bottom: 10, left: 0 }}>
-               <XAxis dataKey="name" tick={{ fill: 'white', fontSize: 12 }} />
-               <YAxis tick={{ fill: 'white', fontSize: 12 }} />
+               <XAxis dataKey="name" tick={{ fill: 'black', fontSize: 12 }} />
+               <YAxis tick={{ fill: 'black', fontSize: 12 }} />
                <Tooltip
                   contentStyle={{
                      backgroundColor: '#1a1a2e',

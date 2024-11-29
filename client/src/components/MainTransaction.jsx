@@ -2,15 +2,18 @@ import { useState } from 'react';
 import TransactionsRecord from './Trasactions/TransactionsRecord';
 import WeeklyReportBarGraph from './Dashboard/WeeklyReportBarGraph';
 import AddTransactionAndReport from './Trasactions/AddTransactionAndReport';
+import TransactionGraph from './Trasactions/TransactionGraph';
+
 
 const MainTransaction = () => {
    return (
-      <div className="mt-2 p-4 sm:p-3 lg:p-4 w-full">
+      <div className="sm:p-3 lg:p-4 w-full p-1 mt-2">
          {/* Top Section */}
          <div className="flex">
             {/* Weekly Report Bar Graph */}
             <div className="w-4/5">
-               <WeeklyReportBarGraph />
+               {/* <WeeklyReportBarGraph /> */}
+               <TransactionGraph />
             </div>
 
             <div className="w-1/2">

@@ -13,7 +13,7 @@ function WeeklyReportBarGraph() {
    ];
 
    return (
-      <div className="bg-white rounded-lg shadow-md p-6 w-full">
+      <div className="bg-slate-200 text-black rounded-lg shadow-md p-6 w-full">
          {/* Title and Filter */}
          <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Expenses statistics</h2>
@@ -24,9 +24,9 @@ function WeeklyReportBarGraph() {
          <ResponsiveContainer width="100%" height={200}>
             <LineChart data={data}>
                <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" />
-               <XAxis dataKey="date" tick={{ fontSize: 12, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+               <XAxis dataKey="date" tick={{ fontSize: 12, fill: 'black' }} axisLine={false} tickLine={false} />
                <YAxis
-                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                  tick={{ fontSize: 12, fill: 'black' }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(value) => `$${value / 1000}k`}

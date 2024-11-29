@@ -12,10 +12,10 @@ html {
    display: flex;
    height: 100vh; /* Full height of viewport */
    width: 100%; /* Full width */
-   background-color: #14181d;
+   background-color: whitesmoke;
    position: relative;
 }
-
+/* bg-[#FCF6F5FF] */
 /* Sidebar styles */
 .sidebar {
    height: 100%; /* Full height */
@@ -75,3 +75,4 @@ html {
 .HIDE{
    display: none;
 }
+

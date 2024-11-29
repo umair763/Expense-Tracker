@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import SideBar from './components/SideBar';
@@ -43,7 +43,7 @@ function App() {
    };
 
    return (
-      <div className="main-container">
+      <div className="main-container ">
          {/* Sidebar */}
          <div className="md:w-1/3 lg:w-1/5">
             <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>

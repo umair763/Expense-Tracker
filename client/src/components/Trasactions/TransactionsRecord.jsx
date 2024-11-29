@@ -149,7 +149,7 @@ const TransactionList = () => {
    const currentRecords = transactions.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage);
 
    return (
-      <div className="p-2 -ml-2 bg-gray-900 min-h-screen">
+      <div className="p-2 -ml-2 bg-slate-200 text-black min-h-screen">
          {/* Filters Section */}
          <div className="flex flex-wrap items-center gap-4 mb-6">
             <select className="border border-gray-300 rounded-lg p-2 w-full md:w-1/6">
@@ -167,9 +167,9 @@ const TransactionList = () => {
          </div>
 
          {/* Transactions Table */}
-         <div className="bg-gray-700 rounded-lg shadow-md overflow-x-auto text-white text-sm">
+         <div className="bg-slate-300 text-black rounded-lg shadow-md overflow-x-auto  text-sm">
             <table className="table-auto w-full text-left border-collapse">
-               <thead className="bg-gray-800 text-sm text-white uppercase">
+               <thead className="bg-gray-500 text-sm uppercase">
                   <tr>
                      <th className="p-4">Transaction ID</th>
                      <th className="p-4">Date</th>
@@ -185,7 +185,7 @@ const TransactionList = () => {
                </thead>
                <tbody>
                   {currentRecords.map((transaction, index) => (
-                     <tr key={index} className="border-b hover:bg-gray-500">
+                     <tr key={index} className="border-b hover:bg-slate-400">
                         <td className="p-4">{transaction.id}</td>
                         <td className="p-4">{transaction.date}</td>
                         <td className="p-4">{transaction.time}</td>

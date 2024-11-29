@@ -48,13 +48,13 @@ function ExpensesRecord() {
    const currentRecords = data.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage);
 
    return (
-      <div className="p-4 bg-gray-900 text-white">
+      <div className="p-4 bg-slate-200 text-black">
          <h1 className="text-2xl sm:text-3xl font-bold mb-4">Expenses</h1>
          {/* Responsive Table */}
-         <div className="overflow-x-auto">
+         <div className="overflow-x-auto ">
             <table className="min-w-full border-collapse table-auto text-sm">
                <thead>
-                  <tr className="text-left border-b border-gray-700 text-xs sm:text-sm lg:text-lg p-0 m-0">
+                  <tr className="text-left border-b border-slate-800 text-xs sm:text-sm lg:text-lg p-0 m-0">
                      <th className="py-3 px-2 sm:px-4">Item</th>
                      <th className="py-3 px-2 sm:px-4">Category</th>
                      <th className="py-3 px-2 sm:px-4">Amount</th>
@@ -65,7 +65,7 @@ function ExpensesRecord() {
                   {currentRecords.map((record, index) => (
                      <tr
                         key={index}
-                        className="border-b border-gray-800 hover:bg-gray-800 text-xs sm:text-sm lg:text-lg"
+                        className="border-b border-gray-800 hover:bg-gray-300 text-xs sm:text-sm lg:text-lg"
                      >
                         <td className="py-3 px-2 sm:px-4">{record.item}</td>
                         <td className="py-3 px-2 sm:px-4">{record.category}</td>
@@ -87,7 +87,7 @@ function ExpensesRecord() {
                   <button
                      key={i}
                      className={`px-3 py-1 text-sm rounded ${
-                        currentPage === i + 1 ? 'bg-yellow-500 text-black' : 'bg-gray-700 hover:bg-gray-600'
+                        currentPage === i + 1 ? 'bg-yellow-500 text-black' : 'bg-gray-400 hover:bg-gray-500'
                      }`}
                      onClick={() => handlePageChange(i + 1)}
                   >
