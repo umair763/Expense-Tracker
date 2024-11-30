@@ -9,7 +9,7 @@ function TrackFinance() {
    ];
 // bg-[#00203FFF] Approved color for background of the graphs
    return (
-      <div className="bg-slate-200 text-black p-4 sm:p-6 rounded-lg shadow-md w-full sm:w-full md:w-full ">
+      <div className="bg-slate-200 dark:bg-[#00203FFF] dark:text-white text-black p-4 sm:p-6 rounded-lg shadow-md w-full sm:w-full md:w-full ">
          <h2 className="text-lg sm:text-xl font-semibold mb-4 ">Track your Finance</h2>
          <div className="space-y-4">
             {data.map((item, index) => (

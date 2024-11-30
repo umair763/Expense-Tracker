@@ -7,7 +7,7 @@ import TransactionGraph from './Trasactions/TransactionGraph';
 
 const MainTransaction = () => {
    return (
-      <div className="sm:p-3 lg:p-4 w-full p-1 mt-2">
+      <div className="sm:p-3 lg:p-4 w-full p-1 mt-5">
          {/* Top Section */}
          <div className="flex">
             {/* Weekly Report Bar Graph */}

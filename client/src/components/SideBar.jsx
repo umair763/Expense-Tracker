@@ -20,7 +20,7 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
    };
 
    return (
-      <div className="h-full flex flex-col justify-between bg-[#5586a5] text-black">
+      <div className="h-full flex flex-col justify-between bg-[#5586a5] text-slate-950 dark:text-white dark:bg-slate-800">
          {/* Top Section */}
          <div className="flex flex-col items-center mt-8 sidebar-expanded:hidden">
             <img
@@ -32,23 +32,35 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
          </div>
 
          {/* Navigation */}
-         <div className="flex flex-col items-start mt-8 space-y-4 px-2 bg-[#417696] p-2 m-3 h-1/2 rounded-lg">
+         <div className="flex flex-col items-start mt-8 space-y-4 px-2 bg-[#417696] dark:bg-slate-700 p-2 m-3 h-1/2 rounded-lg">
             <button
-               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${activeTab === 'dashboard' ? 'bg-[#4783a8]' : 'hover:bg-[#4783a8]'}`}
+               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${
+                  activeTab === 'dashboard'
+                     ? 'bg-[#4783a8] dark:bg-slate-600'
+                     : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
+               }`}
                onClick={handleDashboardClick}
             >
                <FaTachometerAlt className="mr-4" size={16} />
                <span className="flex-grow">Dashboard</span>
             </button>
             <button
-               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${activeTab === 'expenses' ? 'bg-[#4783a8]' : 'hover:bg-[#4783a8]'}`}
+               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${
+                  activeTab === 'expenses'
+                     ? 'bg-[#4783a8] dark:bg-slate-600'
+                     : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
+               }`}
                onClick={handleExpensesClick}
             >
                <FaWallet className="mr-4" size={16} />
                <span className="flex-grow">Expenses</span>
             </button>
             <button
-               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${activeTab === 'transactions' ? 'bg-[#4783a8]' : 'hover:bg-[#4783a8]'}`}
+               className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${
+                  activeTab === 'transactions'
+                     ? 'bg-[#4783a8] dark:bg-slate-600'
+                     : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
+               }`}
                onClick={handleTransactionsClick}
             >
                <FaExchangeAlt className="mr-4" size={16} />

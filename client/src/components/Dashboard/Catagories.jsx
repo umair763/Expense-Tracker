@@ -17,7 +17,7 @@ function Categories() {
    ];
 
    return (
-      <div className="bg-slate-200 text-black p-3 sm:p-4 rounded-lg shadow-md w-full sm:w-full md:w-full ">
+      <div className="bg-slate-200 dark:bg-[#00203FFF] dark:text-white text-black p-3 sm:p-4 rounded-lg shadow-md w-full sm:w-full md:w-full ">
          <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Categories</h2>
 
          {/* Donut Chart */}

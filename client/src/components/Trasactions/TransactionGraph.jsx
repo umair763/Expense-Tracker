@@ -73,7 +73,7 @@ function TransactionGraph() {
    }));
 
    return (
-      <div className="bg-slate-200 text-black p-6 rounded-lg shadow-md w-full">
+      <div className="bg-slate-200 text-black  p-6 rounded-lg shadow-md w-full">
          {/* Title */}
          <h2 className="text-lg font-semibold mb-4">Transaction Amount by Type</h2>
 

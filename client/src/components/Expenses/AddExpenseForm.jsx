@@ -52,17 +52,17 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
    };
 
    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-         <div className="bg-slate-100 rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
+      <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center z-50">
+         <div className="bg-white  dark:bg-slate-800 dark:text-white rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
             <div className="flex justify-between items-center mb-4">
-               <h2 className="text-xl font-semibold text-gray-800">Add Expense</h2>
+               <h2 className="text-xl font-semibold">Add Expense</h2>
                <button onClick={onClose} className="text-gray-500 hover:text-gray-800 focus:outline-none">
                   ✖
                </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
                <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-black mb-1">
+                  <label htmlFor="category" className="block text-sm font-medium mb-1">
                      Category
                   </label>
                   <select
@@ -70,7 +70,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      id="category"
                      value={formData.category}
                      onChange={handleChange}
-                     className="w-full border rounded-lg p-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                     className="w-full border dark:bg-slate-700 rounded-lg p-2 focus:ring-2 focus:ring-blue-600 focus:outline-none"
                      required
                   >
                      <option value="" disabled>
@@ -85,7 +85,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                </div>
                {formData.category && (
                   <div>
-                     <label htmlFor="item" className="block text-sm font-medium text-black mb-1">
+                     <label htmlFor="item" className="block text-sm font-medium mb-1 dark:bg-slate-700">
                         Item
                      </label>
                      <select
@@ -93,7 +93,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                         id="item"
                         value={formData.item}
                         onChange={handleChange}
-                        className="w-full border rounded-lg p-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        className="w-full border rounded-lg p-2 focus:ring-2 dark:bg-slate-700 focus:ring-blue-500 focus:outline-none"
                         required
                      >
                         <option value="" disabled>
@@ -108,7 +108,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                   </div>
                )}
                <div>
-                  <label htmlFor="amount" className="block text-sm font-medium text-black mb-1">
+                  <label htmlFor="amount" className="block text-sm font-medium mb-1">
                      Amount
                   </label>
                   <input
@@ -118,13 +118,13 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      value={formData.amount}
                      onChange={handleChange}
                      placeholder="Enter amount"
-                     className="w-full border rounded-lg p-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                     className="w-full dark:bg-slate-700 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                      required
                   />
                </div>
 
                <div>
-                  <label htmlFor="recordedDate" className="block text-sm font-medium text-black mb-1">
+                  <label htmlFor="recordedDate" className="block text-sm font-medium mb-1">
                      Recorded Date
                   </label>
                   <input
@@ -133,7 +133,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      id="recordedDate"
                      value={formData.recordedDate}
                      onChange={handleChange}
-                     className="w-full border rounded-lg p-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                     className="w-full dark:bg-slate-700 border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                      required
                   />
                </div>

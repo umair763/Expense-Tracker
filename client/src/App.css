@@ -19,7 +19,6 @@ html {
 /* Sidebar styles */
 .sidebar {
    height: 100%; /* Full height */
-   background-color: #1a1d21; /* Sidebar background */
    position: fixed; /* Overlays on mobile */
    top: 0;
    left: 0;
@@ -53,17 +52,10 @@ html {
    top: 1rem;
    left: 1rem;
    z-index: 100; /* Above the sidebar */
-   background-color: #1a1d21;
-   padding: 0.5rem;
-   border-radius: 0.375rem;
    display: flex;
    align-items: center;
    justify-content: center;
    cursor: pointer;
-}
-
-.toggle-btn:hover {
-   background-color: #24292f;
 }
 
 @media (min-width: 500px) {

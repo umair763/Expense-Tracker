@@ -149,7 +149,7 @@ const TransactionList = () => {
    const currentRecords = transactions.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage);
 
    return (
-      <div className="p-2 -ml-2 bg-slate-200 text-black min-h-screen">
+      <div className="p-2 -ml-2 bg-slate-200 text-black dark:bg-[#00203FFF] dark:text-white min-h-screen">
          {/* Filters Section */}
          <div className="flex flex-wrap items-center gap-4 mb-6">
             <select className="border border-gray-300 rounded-lg p-2 w-full md:w-1/6">

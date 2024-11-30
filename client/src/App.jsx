@@ -1,10 +1,12 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
-
 import './App.css';
 import SideBar from './components/SideBar';
 import MainDashBoard from './components/MainDashBoard';
 import MainExpenses from './components/MainExpenses';
 import MainTransaction from './components/MainTransaction';
+import ThemeToggle from './components/ThemeToggle';
+import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -43,44 +45,62 @@ function App() {
    };
 
    return (
-      <div className="main-container ">
-         {/* Sidebar */}
-         <div className="md:w-1/3 lg:w-1/5">
-            <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
-               <SideBar
-                  setIsDashboardVisible={handleIsDashboardVisible}
-                  setIsExpensesVisible={handleIsExpensesVisible}
-                  setIsTransactionsVisible={handleIsTransactionsVisible}
-               />
+      <ThemeProvider>
+         <div className="main-container dark:bg-[#162029]">
+            {/* Sidebar */}
+            <div className="md:w-1/3 lg:w-1/5">
+               <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
+                  <SideBar
+                     setIsDashboardVisible={handleIsDashboardVisible}
+                     setIsExpensesVisible={handleIsExpensesVisible}
+                     setIsTransactionsVisible={handleIsTransactionsVisible}
+                  />
+               </div>
+            </div>
+
+            <div
+               style={{ marginLeft: isSidebarVisible ? '90px' : window.innerWidth > 650 ? '260px' : '90px' }}
+               className="backdrop-blur-xl h-10 flex items-center justify-between text-black fixed left-0 right-0 z-50 px-4 md:px-8"
+            >
+               {/* Toggling Button */}
+               <div
+                  style={{ position: 'absolute', marginLeft: '-95px' }}
+                  className="toggle-btn bg-[#417696] text-slate-950 dark:text-white dark:bg-slate-700 -mt-3 p-1 rounded-md"
+               >
+                  <button className="focus:outline-none focus:ring-0 border-none" onClick={toggleSidebar}>
+                     <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                     </svg>
+                  </button>
+               </div>
+
+               {/* Welcome Message (Only visible on small screens) */}
+               {isSmallScreen && (
+                  <div className="-ml-4 text-xs">
+                     <h1>Welcome, Muhammad Umair</h1>
+                  </div>
+               )}
+
+               {/* Theme Toggle */}
+               <div className="absolute right-4 z-50">
+                  <ThemeToggle />
+               </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
+               {isDashboardVisible && <MainDashBoard />}
+               {isExpensesVisible && <MainExpenses />}
+               {isTransactionsVisible && <MainTransaction />}
             </div>
          </div>
-         {/* Toggling Button */}
-         <div className="toggle-btn">
-            <button className="text-white focus:outline-none" onClick={toggleSidebar}>
-               <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-               >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-               </svg>
-            </button>
-         </div>
-
-         {/* Main Content */}
-         <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
-            {isSmallScreen && (
-               <div className="mt-5 ml-24 pd-4 text-white">
-                  <h1>Welcome, Muhammad Umair</h1>
-               </div>
-            )}
-            {isDashboardVisible && <MainDashBoard />}
-            {isExpensesVisible && <MainExpenses />}
-            {isTransactionsVisible && <MainTransaction />}
-         </div>
-      </div>
+      </ThemeProvider>
    );
 }
 

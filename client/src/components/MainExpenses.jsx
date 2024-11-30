@@ -8,7 +8,7 @@ import Categories from './Dashboard/Catagories';
 
 function MainExpenses() {
    return (
-      <div className="flex flex-col md:flex-row gap-6 p-1 mt-2">
+      <div className="flex flex-col md:flex-row gap-6 p-1 mt-8">
          {/* Left Column */}
          <div className="flex-grow md:w-2/4 lg:w-2/4">
             <ExpensesRecord />
