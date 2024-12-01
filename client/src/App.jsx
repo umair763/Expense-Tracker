@@ -71,7 +71,7 @@ function App() {
             >
                {/* Toggling Button */}
                <div
-                  style={{ position: 'absolute', marginLeft: '-95px' }}
+                  style={{ position: 'absolute', marginLeft: '-85px' }}
                   className="toggle-btn bg-[#417696] text-slate-950 dark:text-white dark:bg-slate-700 -mt-3 p-1 rounded-md"
                >
                   <button className="focus:outline-none focus:ring-0 border-none" onClick={toggleSidebar}>

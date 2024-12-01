@@ -17,3 +17,5 @@ export default {
 	},
 	plugins: [],
 };
+// sans: ['Poppins', 'sans-serif'], 
+// "Hammersmith One": ["Hammersmith One", "sans-serif"],

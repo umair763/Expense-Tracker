@@ -5,6 +5,7 @@ html {
    padding: 0;
    height: 100%; /* Full height */
    overflow: hidden; /* Prevent unwanted scrolling */
+   font: 'Hammersmith One', 'sans-serif';
 }
 
 /* Main container for layout */
@@ -64,7 +65,6 @@ html {
    }
 }
 
-.HIDE{
+.HIDE {
    display: none;
 }
-

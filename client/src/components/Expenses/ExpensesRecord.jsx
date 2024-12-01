@@ -54,7 +54,7 @@ function ExpensesRecord() {
          <div className="overflow-x-auto ">
             <table className="min-w-full border-collapse table-auto text-sm">
                <thead>
-                  <tr className="text-left border-b border-slate-800 text-xs sm:text-sm lg:text-lg p-0 m-0">
+                  <tr className="text-left border-b border-slate-800 text-xs sm:text-sm lg:text-md p-0 m-0">
                      <th className="py-3 px-2 sm:px-4">Item</th>
                      <th className="py-3 px-2 sm:px-4">Category</th>
                      <th className="py-3 px-2 sm:px-4">Amount</th>
@@ -65,7 +65,7 @@ function ExpensesRecord() {
                   {currentRecords.map((record, index) => (
                      <tr
                         key={index}
-                        className="border-b border-gray-800 hover:bg-gray-300 dark:hover:bg-[#0c2742] text-xs sm:text-sm lg:text-lg"
+                        className="border-b border-gray-800 hover:bg-gray-300 dark:hover:bg-[#0c2742] text-xs sm:text-sm lg:text-md"
                      >
                         <td className="py-3 px-2 sm:px-4">{record.item}</td>
                         <td className="py-3 px-2 sm:px-4">{record.category}</td>

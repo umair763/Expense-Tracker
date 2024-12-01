@@ -70,7 +70,7 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
 
          {/* Logout */}
          <div className="flex flex-col items-start p-4">
-            <button className="w-full flex items-center py-2 px-2 hover:bg-red-700 text-red-500 rounded justify-start text-left">
+            <button className="w-full flex items-center py-2 px-2 hover:bg-red-400 bg-red-300 text-red-700 rounded justify-start text-left">
                <FaSignOutAlt className="mr-4" size={20} />
                <span className="flex-grow">Sign Out</span>
             </button>

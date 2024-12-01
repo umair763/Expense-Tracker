@@ -8,15 +8,12 @@ const MainTransaction = (isTheme) => {
    return (
       <div className="sm:p-3 lg:p-4 w-full p-1 mt-5">
          {/* Top Section */}
-         <div className="flex">
-            {/* Weekly Report Bar Graph */}
-            <div className="w-4/5">
-               {/* <WeeklyReportBarGraph /> */}
-               <TransactionGraph isTheme={isTheme} />
-            </div>
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+            {/* <WeeklyReportBarGraph /> */}
+            <TransactionGraph isTheme={isTheme} />
 
-            <div className="w-1/2">
-               {/* Add Transaction and Report */}
+            {/* Add Transaction and Report */}
+            <div className="">
                <AddTransactionAndReport />
             </div>
          </div>

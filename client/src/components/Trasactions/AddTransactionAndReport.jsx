@@ -20,7 +20,7 @@ const AddTransactionAndReport = () => {
                   className="flex items-center p-4 bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg shadow-md hover:bg-slate-400 transition cursor-pointer"
                   onClick={HandleToggleAddTransaction} // Toggle visibility
                >
-                  <div className="w-20 h-12 flex items-center justify-center text-white rounded-full bg-blue-600 mr-4">
+                  <div className="w-12 h-12 flex items-center justify-center text-white rounded-full bg-blue-600 mr-4">
                      <FaPlus className="text-md sm:text-lg" />
                   </div>
                   <span className="text-sm sm:text-base font-medium break-words whitespace-normal overflow-visible">

@@ -172,7 +172,7 @@ const TransactionList = () => {
          {/* Transactions Table */}
          <div className="bg-slate-300 text-black dark:bg-[#123150] dark:text-white rounded-lg shadow-md overflow-x-auto  text-sm">
             <table className="table-auto w-full text-left border-collapse">
-               <thead className="bg-gray-500 dark:bg-[#1e4368] text-sm uppercase">
+               <thead className="bg-gray-400 dark:bg-[#1e4368] text-sm uppercase">
                   <tr>
                      <th className="p-4">Transaction ID</th>
                      <th className="p-4">Date</th>
@@ -230,7 +230,7 @@ const TransactionList = () => {
                      className={`px-3 py-1 rounded-lg text-sm ${
                         currentPage === i + 1
                            ? 'bg-purple-600 text-white hover:bg-purple-700'
-                           : 'bg-purple-600 text-white hover:bg-purple-700'
+                           : 'bg-purple-300 text-white hover:bg-purple-400'
                      }`}
                      onClick={() => handlePageChange(i + 1)}
                   >
