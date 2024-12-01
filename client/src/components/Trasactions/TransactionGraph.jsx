@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-function TransactionGraph() {
+function TransactionGraph({isTheme}) {
    // Sample Transaction Data
    const transactions = [
       {
@@ -73,7 +73,7 @@ function TransactionGraph() {
    }));
 
    return (
-      <div className="bg-slate-200 text-black  p-6 rounded-lg shadow-md w-full">
+      <div className="bg-slate-200 dark:bg-slate-500 dark:text-white text-black p-6 rounded-lg shadow-md w-full">
          {/* Title */}
          <h2 className="text-lg font-semibold mb-4">Transaction Amount by Type</h2>
 

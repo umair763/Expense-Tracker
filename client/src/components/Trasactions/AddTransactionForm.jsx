@@ -28,11 +28,11 @@ const TransactionForm = ({ onClose, onSubmit }) => {
    return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
          {/* Modal Container */}
-         <div className="bg-slate-100 rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2 max-h-[90vh] overflow-hidden">
+         <div className="bg-white  dark:bg-slate-800 dark:text-white rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2 max-h-[90vh] overflow-hidden">
             {/* Modal Header */}
             <div className="flex justify-between items-center mb-4">
-               <h2 className="text-xl font-semibold text-gray-800">Add Transaction</h2>
-               <button onClick={onClose} className="text-gray-500 hover:text-gray-800 focus:outline-none">
+               <h2 className="text-xl font-semibold">Add Transaction</h2>
+               <button onClick={onClose} className=" hover:text-gray-800 focus:outline-none">
                   ✖
                </button>
             </div>
@@ -41,7 +41,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
             <div className="overflow-y-auto max-h-[calc(90vh-4rem)]">
                <form onSubmit={handleSubmit} className="space-y-4 mb-4">
                   <div>
-                     <label htmlFor="id" className="block text-sm font-medium text-gray-700 mb-1">
+                     <label htmlFor="id" className="block text-sm font-medium  mb-1">
                         Transaction ID
                      </label>
                      <input
@@ -51,13 +51,13 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                         value={formData.id}
                         onChange={handleChange}
                         placeholder="Enter transaction ID"
-                        className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         required
                      />
                   </div>
                   <div className="flex gap-4">
                      <div className="flex-1">
-                        <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="date" className="block text-sm font-medium  mb-1">
                            Date
                         </label>
                         <input
@@ -66,12 +66,12 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            id="date"
                            value={formData.date}
                            onChange={handleChange}
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            required
                         />
                      </div>
                      <div className="flex-1">
-                        <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="time" className="block text-sm font-medium  mb-1">
                            Time
                         </label>
                         <input
@@ -80,13 +80,13 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            id="time"
                            value={formData.time}
                            onChange={handleChange}
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            required
                         />
                      </div>
                   </div>
                   <div>
-                     <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
+                     <label htmlFor="type" className="block text-sm font-medium  mb-1">
                         Transaction Type
                      </label>
                      <select
@@ -94,7 +94,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                         id="type"
                         value={formData.type}
                         onChange={handleChange}
-                        className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         required
                      >
                         <option value="" disabled>
@@ -106,8 +106,8 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                      </select>
                   </div>
                   <div className="flex gap-4">
-                     <div className="flex-1">
-                        <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
+                     <div className="flex-1 ">
+                        <label htmlFor="amount" className="block  text-sm font-medium  mb-1">
                            Amount
                         </label>
                         <input
@@ -117,12 +117,12 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            value={formData.amount}
                            onChange={handleChange}
                            placeholder="Enter amount"
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            required
                         />
                      </div>
                      <div className="flex-1">
-                        <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="status" className="block text-sm font-medium  mb-1">
                            Status
                         </label>
                         <select
@@ -130,7 +130,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            id="status"
                            value={formData.status}
                            onChange={handleChange}
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            required
                         >
                            <option value="" disabled>
@@ -143,7 +143,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                   </div>
                   <div className="flex gap-4">
                      <div className="flex-1">
-                        <label htmlFor="discount" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="discount" className="block text-sm font-medium  mb-1">
                            Discount (%)
                         </label>
                         <input
@@ -153,11 +153,11 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            value={formData.discount}
                            onChange={handleChange}
                            placeholder="Enter discount"
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         />
                      </div>
                      <div className="flex-1">
-                        <label htmlFor="fee_charge" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="fee_charge" className="block text-sm font-medium  mb-1">
                            Fee/Charge
                         </label>
                         <input
@@ -167,12 +167,12 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                            value={formData.fee_charge}
                            onChange={handleChange}
                            placeholder="Enter fee/charge"
-                           className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                           className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         />
                      </div>
                   </div>
                   <div>
-                     <label htmlFor="depository_institution" className="block text-sm font-medium text-gray-700 mb-1">
+                     <label htmlFor="depository_institution" className="block text-sm font-medium  mb-1">
                         Depository Institution
                      </label>
                      <select
@@ -180,7 +180,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                         id="depository_institution"
                         value={formData.depository_institution}
                         onChange={handleChange}
-                        className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         required
                      >
                         <option value="" disabled>
@@ -192,7 +192,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                      </select>
                   </div>
                   <div>
-                     <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                     <label htmlFor="description" className="block text-sm font-medium  mb-1">
                         Description
                      </label>
                      <textarea
@@ -201,7 +201,7 @@ const TransactionForm = ({ onClose, onSubmit }) => {
                         value={formData.description}
                         onChange={handleChange}
                         placeholder="Enter description"
-                        className="w-full border rounded-lg p-2 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                        className="w-full dark:bg-slate-700 dark:border-slate-700 border rounded-lg p-2  focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         rows="4"
                      />
                   </div>

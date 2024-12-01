@@ -5,7 +5,7 @@ import MonthlyReportBarGraph from './Dashboard/MonthlyReportBarGraph';
 import WeeklyReportBarGraph from './Dashboard/WeeklyReportBarGraph';
 import IncomeAndSpendings from './Dashboard/IncomeAndSpendings';
 
-function MainDashBoard() {
+function MainDashBoard({ isTheme }) {
    return (
       <div className=" w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2 mt-8">
          {/* First Column (Center Section) */}
@@ -18,12 +18,12 @@ function MainDashBoard() {
 
             {/* Middle Row: Monthly Report Graph */}
             <div className="overflow-hidden">
-               <MonthlyReportBarGraph />
+               <MonthlyReportBarGraph isTheme={isTheme} />
             </div>
 
             {/* Bottom Row: Weekly Report Graph */}
             <div className="overflow-hidden">
-               <WeeklyReportBarGraph />
+               <WeeklyReportBarGraph isTheme={isTheme} />
             </div>
          </div>
 

@@ -4,8 +4,7 @@ import WeeklyReportBarGraph from './Dashboard/WeeklyReportBarGraph';
 import AddTransactionAndReport from './Trasactions/AddTransactionAndReport';
 import TransactionGraph from './Trasactions/TransactionGraph';
 
-
-const MainTransaction = () => {
+const MainTransaction = (isTheme) => {
    return (
       <div className="sm:p-3 lg:p-4 w-full p-1 mt-5">
          {/* Top Section */}
@@ -13,7 +12,7 @@ const MainTransaction = () => {
             {/* Weekly Report Bar Graph */}
             <div className="w-4/5">
                {/* <WeeklyReportBarGraph /> */}
-               <TransactionGraph />
+               <TransactionGraph isTheme={isTheme} />
             </div>
 
             <div className="w-1/2">
@@ -23,7 +22,7 @@ const MainTransaction = () => {
          </div>
 
          {/* Transactions Record */}
-         <div className="mt-3">
+         <div className="mt-3 ">
             <TransactionsRecord />
          </div>
       </div>

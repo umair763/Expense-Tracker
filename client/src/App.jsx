@@ -14,6 +14,7 @@ function App() {
    const [isExpensesVisible, setIsExpensesVisible] = useState(false);
    const [isTransactionsVisible, setIsTransactionsVisible] = useState(false);
    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
+   const [isTheme, setIsTheme] = useState(false);
 
    useEffect(() => {
       const handleResize = () => setIsSmallScreen(window.innerWidth <= 500);
@@ -43,6 +44,12 @@ function App() {
       setIsExpensesVisible(false);
       setIsTransactionsVisible(true);
    };
+
+   console.log(isTheme);
+   const handleIsTheme = (isDark) => {
+      setIsTheme(isDark);
+   };
+   console.log(isTheme);
 
    return (
       <ThemeProvider>
@@ -82,22 +89,22 @@ function App() {
 
                {/* Welcome Message (Only visible on small screens) */}
                {isSmallScreen && (
-                  <div className="-ml-4 text-xs">
+                  <div className="-ml-4 text-xs font-semibold text-black dark:text-white">
                      <h1>Welcome, Muhammad Umair</h1>
                   </div>
                )}
 
                {/* Theme Toggle */}
                <div className="absolute right-4 z-50">
-                  <ThemeToggle />
+                  <ThemeToggle setISTheme={handleIsTheme} />
                </div>
             </div>
 
             {/* Main Content */}
             <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
-               {isDashboardVisible && <MainDashBoard />}
+               {isDashboardVisible && <MainDashBoard isTheme={isTheme} />}
                {isExpensesVisible && <MainExpenses />}
-               {isTransactionsVisible && <MainTransaction />}
+               {isTransactionsVisible && <MainTransaction isTheme={isTheme} />}
             </div>
          </div>
       </ThemeProvider>

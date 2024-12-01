@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-function MonthlyReportBarGraph() {
+function MonthlyReportBarGraph({ isTheme }) {
    // Sample Data for the Graph
    const data = [
       { name: 'Accommodation', value: 40 },
@@ -19,8 +19,8 @@ function MonthlyReportBarGraph() {
          {/* Bar Chart */}
          <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data} margin={{ top: 10, right: 5, bottom: 10, left: 0 }}>
-               <XAxis dataKey="name" tick={{ fill: 'black', fontSize: 12 }} />
-               <YAxis tick={{ fill: 'black', fontSize: 12 }} />
+               <XAxis dataKey="name" tick={{ fill: isTheme ? 'white' : 'black', fontSize: 12 }} />
+               <YAxis tick={{ fill: isTheme ? 'white' : 'black', fontSize: 12 }} />
                <Tooltip
                   contentStyle={{
                      backgroundColor: '#1a1a2e',
@@ -37,3 +37,4 @@ function MonthlyReportBarGraph() {
 }
 
 export default MonthlyReportBarGraph;
+// className = 'text-black dark:text-white';

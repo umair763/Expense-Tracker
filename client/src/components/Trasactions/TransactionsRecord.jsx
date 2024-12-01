@@ -152,7 +152,7 @@ const TransactionList = () => {
       <div className="p-2 -ml-2 bg-slate-200 text-black dark:bg-[#00203FFF] dark:text-white min-h-screen">
          {/* Filters Section */}
          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <select className="border border-gray-300 rounded-lg p-2 w-full md:w-1/6">
+            <select className="dark:bg-slate-700 focus:outline-none dark:border-slate-700 border border-gray-300 rounded-lg p-2 w-full md:w-1/6">
                <option>Status</option>
                <option>Successful</option>
                <option>Failed</option>
@@ -160,16 +160,19 @@ const TransactionList = () => {
             <input
                type="text"
                placeholder="Transaction ID"
-               className="border border-gray-300 rounded-lg p-2 w-full md:w-1/6"
+               className="dark:bg-slate-700 focus:outline-none dark:border-slate-700 border border-gray-300 rounded-lg p-2 w-full md:w-1/6"
             />
-            <input type="date" className="border border-gray-300 rounded-lg p-2 w-full md:w-1/6" />
+            <input
+               type="date"
+               className="dark:bg-slate-700 focus:outline-none dark:border-slate-700 border border-gray-300 rounded-lg p-2 w-full md:w-1/6"
+            />
             <button className="bg-purple-600 text-white rounded-lg px-4 py-2 hover:bg-purple-700">Search</button>
          </div>
 
          {/* Transactions Table */}
-         <div className="bg-slate-300 text-black rounded-lg shadow-md overflow-x-auto  text-sm">
+         <div className="bg-slate-300 text-black dark:bg-[#123150] dark:text-white rounded-lg shadow-md overflow-x-auto  text-sm">
             <table className="table-auto w-full text-left border-collapse">
-               <thead className="bg-gray-500 text-sm uppercase">
+               <thead className="bg-gray-500 dark:bg-[#1e4368] text-sm uppercase">
                   <tr>
                      <th className="p-4">Transaction ID</th>
                      <th className="p-4">Date</th>
@@ -185,7 +188,7 @@ const TransactionList = () => {
                </thead>
                <tbody>
                   {currentRecords.map((transaction, index) => (
-                     <tr key={index} className="border-b hover:bg-slate-400">
+                     <tr key={index} className="border-b hover:bg-slate-400 dark:hover:bg-[#204972]">
                         <td className="p-4">{transaction.id}</td>
                         <td className="p-4">{transaction.date}</td>
                         <td className="p-4">{transaction.time}</td>
@@ -220,12 +223,14 @@ const TransactionList = () => {
                )} of ${transactions.length} transactions`}
             </p>
             {/* Pagination Buttons */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ">
                {Array.from({ length: totalPages }, (_, i) => (
                   <button
                      key={i}
                      className={`px-3 py-1 rounded-lg text-sm ${
-                        currentPage === i + 1 ? 'bg-purple-600 text-white' : 'bg-gray-200 hover:bg-gray-300'
+                        currentPage === i + 1
+                           ? 'bg-purple-600 text-white hover:bg-purple-700'
+                           : 'bg-purple-600 text-white hover:bg-purple-700'
                      }`}
                      onClick={() => handlePageChange(i + 1)}
                   >

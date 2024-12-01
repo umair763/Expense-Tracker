@@ -13,11 +13,11 @@ function WeeklyReportBarGraph() {
    ];
 
    return (
-      <div className="bg-slate-200  text-black rounded-lg shadow-md p-6 w-full">
+      <div className="bg-slate-200 dark:bg-gray-500 dark:text-white text-black rounded-lg shadow-md p-6 w-full">
          {/* Title and Filter */}
          <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Expenses statistics</h2>
-            <button className="text-gray-500 text-sm font-medium">Week ▼</button>
+            <button className="text-gray-500 dark:text-white text-sm font-medium">Week ▼</button>
          </div>
 
          {/* Chart */}
