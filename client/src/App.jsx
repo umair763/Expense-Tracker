@@ -54,7 +54,7 @@ function App() {
 
    return (
       <BrowserRouter>
-         {!isLogin ? (
+         {isLogin ? (
             <Routes>
                <Route path="/" element={<Login setLogin={setIsLogin} />} />
                <Route path="/register" element={<Registeration />} />
