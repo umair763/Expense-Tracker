@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import GoogleSignIn from './GoogleSignIn';
 import { useNavigate } from 'react-router-dom';
 
-const ProfileImageUploader = () => {
+// Updated ProfileImageUploader to properly pass the selected image to the parent component
+const ProfileImageUploader = ({ setImage }) => {
    const [selectedImage, setSelectedImage] = useState(null);
 
    const handleFileChange = (e) => {
       if (e.target.files && e.target.files[0]) {
          const file = e.target.files[0];
          setSelectedImage(URL.createObjectURL(file)); // Preview the image
+         setImage(file); // Pass the file to the parent component
       }
    };
 
@@ -50,7 +52,37 @@ const ProfileImageUploader = () => {
 };
 
 function Registeration() {
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const [image, setImage] = useState(null); // Image file to send to backend
+   const [error, setError] = useState('');
    const navigate = useNavigate();
+
+   const handleRegister = async (e) => {
+      e.preventDefault();
+      try {
+         const formData = new FormData();
+         formData.append('email', email);
+         formData.append('password', password);
+         if (image) {
+            formData.append('image', image); // Include the image file
+         }
+
+         const response = await fetch('http://localhost:5000/api/users/register', {
+            method: 'POST',
+            body: formData,
+         });
+
+         const data = await response.json();
+         if (response.ok) {
+            navigate('/');
+         } else {
+            setError(data.message || 'Failed to register. Try again.');
+         }
+      } catch (err) {
+         setError('Server error. Please try again.');
+      }
+   };
 
    return (
       <div
@@ -59,18 +91,19 @@ function Registeration() {
       >
          <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-lg p-8 w-96">
             <h2 className="text-white text-2xl font-bold text-center mb-6">Registeration</h2>
-            <ProfileImageUploader />
-            <form>
-               {/* Username/Email Field */}
+            <ProfileImageUploader setImage={setImage} />
+            <form onSubmit={handleRegister}>
+               {/* Email Field */}
                <div className="mb-4">
                   <label className="sr-only" htmlFor="username">
-                     Username or Email
+                     Email
                   </label>
                   <div className="relative">
                      <input
                         type="text"
-                        id="username"
-                        placeholder="Username or Email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full py-2 px-4 bg-white/20 text-white placeholder-gray-300 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                      />
                      <span className="absolute inset-y-0 right-4 flex items-center text-gray-400">
@@ -87,8 +120,9 @@ function Registeration() {
                   <div className="relative">
                      <input
                         type="password"
-                        id="password"
                         placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full py-2 px-4 bg-white/20 text-white placeholder-gray-300 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                      />
                      <span className="absolute inset-y-0 right-4 flex items-center text-gray-400">
@@ -97,13 +131,14 @@ function Registeration() {
                   </div>
                </div>
 
-               {/* Login Button */}
+               {/* Register Button */}
                <button
                   type="submit"
                   className="w-full py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-300"
                >
                   REGISTER
                </button>
+               {error && <p className="text-red-500 text-center mb-4">{error}</p>}
             </form>
 
             <div className="w-full bg-white mt-4" style={{ height: '1px' }}></div>

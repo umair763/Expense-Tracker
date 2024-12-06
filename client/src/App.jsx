@@ -19,6 +19,14 @@ function App() {
    const [isTheme, setIsTheme] = useState(false);
    const [isLogin, setIsLogin] = useState(false);
 
+   // Check localStorage for login state on initial load
+   useEffect(() => {
+      const token = localStorage.getItem('token'); // Check if token exists
+      if (token) {
+         setIsLogin(true);
+      }
+   }, []);
+
    useEffect(() => {
       const handleResize = () => setIsSmallScreen(window.innerWidth <= 500);
       window.addEventListener('resize', handleResize);
@@ -54,7 +62,7 @@ function App() {
 
    return (
       <BrowserRouter>
-         {isLogin ? (
+         {!isLogin ? (
             <Routes>
                <Route path="/" element={<Login setLogin={setIsLogin} />} />
                <Route path="/register" element={<Registeration />} />
