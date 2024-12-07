@@ -1,37 +1,53 @@
 // server/controllers/UserControllers.js
+const User = require("../model/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const axios = require("axios");
 const { OAuth2Client } = require("google-auth-library");
-const User = require("../model/UserModel");
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const JWT_SECRET = process.env.JWT_SECRET;
 
 const oauthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
+// Google Sign-In Handler// Google Sign-In Handler
 // Required for fetching images
 const fetch = require("node-fetch");
 
+// Google Sign-In Handler
 exports.googleSignIn = async (req, res) => {
 	const { name, email, picture } = req.body;
 
+	// Fetch the profile image and convert it to base64
+	const response = await fetch(picture);
+	const imageBuffer = await response.buffer();
+	const base64Picture = imageBuffer.toString("base64");
+
+	// Check if necessary fields are provided
+	if (!name || !email || !picture) {
+		return res.status(400).json({ error: "Missing required fields (name, email, picture)" });
+	}
+
 	try {
+		// Check if user already exists with this email
 		let user = await User.findOne({ email });
 
 		if (!user) {
-			// Create a new user if one doesn't exist
+			// Create a new user with Google info
 			user = new User({
-				name, // Save the user's name
-				email,
-				picture, // Store the picture URL
-				password: await bcrypt.hash("tempPassword123", 10), // Placeholder password
+				name: name,
+				email: email,
+				password: await bcrypt.hash("tempPassword123", 10), // Temporary password
+				picture: base64Picture,
 			});
 
+			// Save user to the database
 			await user.save();
 		}
 
-		// Generate a JWT token
+		// Generate JWT token
 		const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1d" });
 
 		return res.status(200).json({
@@ -70,9 +86,9 @@ exports.registerUser = async (req, res) => {
 		}
 
 		try {
-			const { email, password } = req.body;
+			const { name, email, password } = req.body;
 
-			if (!email || !password) {
+			if (!name || !email || !password) {
 				return res.status(400).json({ message: "Email and password are required." });
 			}
 
@@ -90,6 +106,7 @@ exports.registerUser = async (req, res) => {
 			}
 
 			const newUser = new User({
+				name,
 				email,
 				password: hashedPassword,
 				image: base64Image,
@@ -108,7 +125,7 @@ exports.registerUser = async (req, res) => {
 // Login user
 exports.loginUser = async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		const { name, email, password } = req.body;
 
 		// Check if user exists
 		const user = await User.findOne({ email });

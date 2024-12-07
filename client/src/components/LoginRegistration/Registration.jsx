@@ -61,6 +61,10 @@ function Registration({ setLogin }) {
 
    const handleRegister = async (e) => {
       e.preventDefault();
+      if (!name || !email || !password) {
+         setError('All fields are required.');
+         return;
+      }
       try {
          const formData = new FormData();
          formData.append('name', name);
@@ -69,6 +73,7 @@ function Registration({ setLogin }) {
          if (image) {
             formData.append('image', image); // Include the image file
          }
+         console.log('Form Data:', formData); // Debugging line
 
          const response = await fetch('http://localhost:5000/api/users/register', {
             method: 'POST',

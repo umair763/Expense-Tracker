@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 import { FaTachometerAlt, FaWallet, FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransactionsVisible }) {
+function SideBar({ setLogin }) {
    const [activeTab, setActiveTab] = useState('dashboard');
+   const navigate = useNavigate();
 
-   const handleDashboardClick = () => {
-      setActiveTab('dashboard');
-      setIsDashboardVisible();
+   const handleTabClick = (tab, path) => {
+      setActiveTab(tab);
+      navigate(path);
    };
 
-   const handleExpensesClick = () => {
-      setActiveTab('expenses');
-      setIsExpensesVisible();
-   };
-
-   const handleTransactionsClick = () => {
-      setActiveTab('transactions');
-      setIsTransactionsVisible();
+   const handleLogout = () => {
+      localStorage.removeItem('token');
+      setLogin(false);
    };
 
    return (
       <div className="h-full flex flex-col justify-between bg-[#5586a5] text-slate-950 dark:text-white dark:bg-slate-800">
-         {/* Top Section */}
-         <div className="flex flex-col items-center mt-8 sidebar-expanded:hidden">
+         <div className="flex flex-col items-center mt-8">
             <img
                src="./src/images/peakpx.jpg"
                alt="Profile"
@@ -31,7 +27,6 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
             <h2 className="mt-4 text-lg font-semibold hidden sm:block">Muhammad Umair</h2>
          </div>
 
-         {/* Navigation */}
          <div className="flex flex-col items-start mt-8 space-y-4 px-2 bg-[#417696] dark:bg-slate-700 p-2 m-3 h-1/2 rounded-lg">
             <button
                className={`w-full flex items-center py-2 px-2 rounded justify-start text-left ${
@@ -39,7 +34,7 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
                      ? 'bg-[#4783a8] dark:bg-slate-600'
                      : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
                }`}
-               onClick={handleDashboardClick}
+               onClick={() => handleTabClick('dashboard', '/dashboard')}
             >
                <FaTachometerAlt className="mr-4" size={16} />
                <span className="flex-grow">Dashboard</span>
@@ -50,7 +45,7 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
                      ? 'bg-[#4783a8] dark:bg-slate-600'
                      : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
                }`}
-               onClick={handleExpensesClick}
+               onClick={() => handleTabClick('expenses', '/expenses')}
             >
                <FaWallet className="mr-4" size={16} />
                <span className="flex-grow">Expenses</span>
@@ -61,16 +56,18 @@ function SideBar({ setIsDashboardVisible, setIsExpensesVisible, setIsTransaction
                      ? 'bg-[#4783a8] dark:bg-slate-600'
                      : 'hover:bg-[#4783a8] dark:hover:bg-slate-600'
                }`}
-               onClick={handleTransactionsClick}
+               onClick={() => handleTabClick('transactions', '/transactions')}
             >
                <FaExchangeAlt className="mr-4" size={16} />
                <span className="flex-grow">Transactions</span>
             </button>
          </div>
 
-         {/* Logout */}
          <div className="flex flex-col items-start p-4">
-            <button className="w-full flex items-center py-2 px-2 hover:bg-red-400 bg-red-300 text-red-700 rounded justify-start text-left">
+            <button
+               className="w-full flex items-center py-2 px-2 hover:bg-red-400 bg-red-300 text-red-700 rounded justify-start text-left"
+               onClick={handleLogout}
+            >
                <FaSignOutAlt className="mr-4" size={20} />
                <span className="flex-grow">Sign Out</span>
             </button>

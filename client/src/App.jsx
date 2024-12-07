@@ -7,19 +7,15 @@ import MainTransaction from './components/MainTransaction';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './components/ThemeContext';
 import Login from './components/LoginRegistration/Login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Registration from './components/LoginRegistration/Registration';
 
 function App() {
    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-   const [isDashboardVisible, setIsDashboardVisible] = useState(true);
-   const [isExpensesVisible, setIsExpensesVisible] = useState(false);
-   const [isTransactionsVisible, setIsTransactionsVisible] = useState(false);
    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
    const [isTheme, setIsTheme] = useState(false);
    const [isLogin, setIsLogin] = useState(false);
 
-   // Check localStorage for login state on initial load
    useEffect(() => {
       const token = localStorage.getItem('token'); // Check if token exists
       if (token) {
@@ -33,27 +29,8 @@ function App() {
       return () => window.removeEventListener('resize', handleResize);
    }, []);
 
-   // Toggle sidebar visibility
    const toggleSidebar = () => {
       setIsSidebarVisible(!isSidebarVisible);
-   };
-
-   const handleIsDashboardVisible = () => {
-      setIsDashboardVisible(true);
-      setIsExpensesVisible(false);
-      setIsTransactionsVisible(false);
-   };
-
-   const handleIsExpensesVisible = () => {
-      setIsDashboardVisible(false);
-      setIsExpensesVisible(true);
-      setIsTransactionsVisible(false);
-   };
-
-   const handleIsTransactionsVisible = () => {
-      setIsDashboardVisible(false);
-      setIsExpensesVisible(false);
-      setIsTransactionsVisible(true);
    };
 
    const handleIsTheme = (isDark) => {
@@ -65,30 +42,24 @@ function App() {
          {!isLogin ? (
             <Routes>
                <Route path="/" element={<Login setLogin={setIsLogin} />} />
-               <Route path="/register" element={<Registration />} setLogin={setIsLogin} />
+               <Route path="/register" element={<Registration setLogin={setIsLogin} />} />
+               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
          ) : (
             <ThemeProvider>
                <div className="main-container dark:bg-[#162029]">
-                  {/* Sidebar */}
                   <div className="md:w-1/3 lg:w-1/5">
                      <div className={`sidebar ${isSidebarVisible ? 'visible' : ''}`}>
-                        <SideBar
-                           setIsDashboardVisible={handleIsDashboardVisible}
-                           setIsExpensesVisible={handleIsExpensesVisible}
-                           setIsTransactionsVisible={handleIsTransactionsVisible}
-                        />
+                        <SideBar setLogin={setIsLogin} />
                      </div>
                   </div>
 
-                  {/* Top Navigation */}
                   <div
                      style={{
                         marginLeft: isSidebarVisible ? '90px' : window.innerWidth > 650 ? '260px' : '90px',
                      }}
-                     className="backdrop-blur-xl h-10 flex items-center justify-between text-black fixed left-0 right-0 z-50 px-4 md:px-8"
+                     className="backdrop-blur-xl h-8 flex items-center justify-between text-black fixed left-0 right-0 z-50 px-4 md:px-8"
                   >
-                     {/* Toggling Button */}
                      <div
                         style={{ position: 'absolute', marginLeft: '-85px' }}
                         className="toggle-btn bg-[#417696] text-slate-950 dark:text-white dark:bg-slate-700 -mt-3 p-1 rounded-md"
@@ -111,24 +82,24 @@ function App() {
                         </button>
                      </div>
 
-                     {/* Welcome Message (Small Screens) */}
                      {isSmallScreen && (
                         <div className="-ml-4 text-xs font-semibold text-black dark:text-white">
                            <h1>Welcome, User</h1>
                         </div>
                      )}
 
-                     {/* Theme Toggle */}
                      <div className="absolute right-4 z-50">
                         <ThemeToggle setISTheme={handleIsTheme} />
                      </div>
                   </div>
 
-                  {/* Main Content */}
                   <div className="w-full md:w-11/12 lg:w-11/12 overflow-y-auto">
-                     {isDashboardVisible && <MainDashBoard isTheme={isTheme} />}
-                     {isExpensesVisible && <MainExpenses />}
-                     {isTransactionsVisible && <MainTransaction isTheme={isTheme} />}
+                     <Routes>
+                        <Route path="/dashboard" element={<MainDashBoard isTheme={isTheme} />} />
+                        <Route path="/expenses" element={<MainExpenses />} />
+                        <Route path="/transactions" element={<MainTransaction isTheme={isTheme} />} />
+                        <Route path="*" element={<Navigate to="/dashboard" />} />
+                     </Routes>
                   </div>
                </div>
             </ThemeProvider>
