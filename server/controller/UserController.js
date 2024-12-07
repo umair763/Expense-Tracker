@@ -1,10 +1,53 @@
 // server/controllers/UserControllers.js
-const User = require("../model/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+const { OAuth2Client } = require("google-auth-library");
+const User = require("../model/UserModel");
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+const oauthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+// Required for fetching images
+const fetch = require("node-fetch");
+
+exports.googleSignIn = async (req, res) => {
+	const { name, email, picture } = req.body;
+
+	try {
+		let user = await User.findOne({ email });
+
+		if (!user) {
+			// Create a new user if one doesn't exist
+			user = new User({
+				name, // Save the user's name
+				email,
+				picture, // Store the picture URL
+				password: await bcrypt.hash("tempPassword123", 10), // Placeholder password
+			});
+
+			await user.save();
+		}
+
+		// Generate a JWT token
+		const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1d" });
+
+		return res.status(200).json({
+			message: "User authenticated successfully",
+			token: jwtToken,
+			user: {
+				name: user.name,
+				email: user.email,
+				picture: user.picture,
+			},
+		});
+	} catch (error) {
+		console.error("Error during Google sign-in:", error);
+		return res.status(500).json({ error: "Failed to authenticate user" });
+	}
+};
 
 // Configure multer
 const upload = multer({

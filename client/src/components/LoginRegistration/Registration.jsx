@@ -51,7 +51,8 @@ const ProfileImageUploader = ({ setImage }) => {
    );
 };
 
-function Registeration() {
+function Registration({ setLogin }) {
+   const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [image, setImage] = useState(null); // Image file to send to backend
@@ -62,6 +63,7 @@ function Registeration() {
       e.preventDefault();
       try {
          const formData = new FormData();
+         formData.append('name', name);
          formData.append('email', email);
          formData.append('password', password);
          if (image) {
@@ -90,9 +92,27 @@ function Registeration() {
          style={{ backgroundImage: 'url(./src/assets/loginBG-3.jpg)' }}
       >
          <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-lg p-8 w-96">
-            <h2 className="text-white text-2xl font-bold text-center mb-6">Registeration</h2>
+            <h2 className="text-white text-2xl font-bold text-center mb-6">Registration</h2>
             <ProfileImageUploader setImage={setImage} />
             <form onSubmit={handleRegister}>
+               {/* Name Field */}
+               <div className="mb-4">
+                  <label className="sr-only" htmlFor="username">
+                     Name
+                  </label>
+                  <div className="relative">
+                     <input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full py-2 px-4 bg-white/20 text-white placeholder-gray-300 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                     />
+                     <span className="absolute inset-y-0 right-4 flex items-center text-gray-400">
+                        <i className="fas fa-user"></i>
+                     </span>
+                  </div>
+               </div>
                {/* Email Field */}
                <div className="mb-4">
                   <label className="sr-only" htmlFor="username">
@@ -143,8 +163,8 @@ function Registeration() {
 
             <div className="w-full bg-white mt-4" style={{ height: '1px' }}></div>
             <div className="mt-2 mb-4 text-center text-white">Register As</div>
-            <div>
-               <GoogleSignIn />
+            <div className="flex flex-col items-center">
+               <GoogleSignIn setLogin={setLogin} />
             </div>
             <p className="text-center text-gray-300 mt-3 -mb-3">
                Already have an account?{' '}
@@ -157,4 +177,4 @@ function Registeration() {
    );
 }
 
-export default Registeration;
+export default Registration;

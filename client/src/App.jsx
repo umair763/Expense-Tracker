@@ -6,9 +6,9 @@ import MainExpenses from './components/MainExpenses';
 import MainTransaction from './components/MainTransaction';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './components/ThemeContext';
-import Login from './components/LoginRegisteration/Login';
+import Login from './components/LoginRegistration/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Registeration from './components/LoginRegisteration/Registeration';
+import Registration from './components/LoginRegistration/Registration';
 
 function App() {
    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -65,7 +65,7 @@ function App() {
          {!isLogin ? (
             <Routes>
                <Route path="/" element={<Login setLogin={setIsLogin} />} />
-               <Route path="/register" element={<Registeration />} />
+               <Route path="/register" element={<Registration />} setLogin={setIsLogin} />
             </Routes>
          ) : (
             <ThemeProvider>

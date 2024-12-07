@@ -1,13 +1,59 @@
-import React, { useState } from 'react';
-import Registeration from './Registeration';
+import React, { useState, useEffect } from 'react';
+import Registration from './Registration';
 import GoogleSignIn from './GoogleSignIn';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ setLogin }) {
+   const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [error, setError] = useState('');
    const navigate = useNavigate();
+
+   // Remove token when the page is closed
+   useEffect(() => {
+      const handleUnload = () => {
+         localStorage.removeItem('token');
+      };
+
+      window.addEventListener('beforeunload', handleUnload);
+
+      return () => {
+         window.removeEventListener('beforeunload', handleUnload);
+      };
+   }, []);
+
+   // Check for token in local storage on component mount and validate it
+   useEffect(() => {
+      const checkToken = async () => {
+         const token = localStorage.getItem('token');
+         if (token) {
+            try {
+               // Validate the token with the backend
+               const response = await fetch('http://localhost:5000/api/users/login', {
+                  method: 'GET',
+                  headers: {
+                     'Content-Type': 'application/json',
+                     Authorization: `Bearer ${token}`,
+                  },
+               });
+
+               if (response.ok) {
+                  setLogin(true); // Token is valid, log the user in
+               } else {
+                  localStorage.removeItem('token'); // Token is invalid, remove it
+                  setLogin(false);
+               }
+            } catch (err) {
+               setError('Error validating token. Please log in again.');
+            }
+         } else {
+            setLogin(false); // No token found, user must log in
+         }
+      };
+
+      checkToken();
+   }, [setLogin]);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -15,7 +61,7 @@ function Login({ setLogin }) {
          const response = await fetch('http://localhost:5000/api/users/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ name, email, password }),
          });
 
          const data = await response.json();
@@ -47,6 +93,15 @@ function Login({ setLogin }) {
                <div className="mb-4">
                   <input
                      type="text"
+                     placeholder="Name"
+                     value={name}
+                     onChange={(e) => setName(e.target.value)}
+                     className="w-full py-2 px-4 bg-white/20 text-white placeholder-gray-300 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+               </div>
+               <div className="mb-4">
+                  <input
+                     type="text"
                      placeholder="Email"
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
@@ -71,8 +126,8 @@ function Login({ setLogin }) {
             </form>
             <div className="w-full bg-white mt-6" style={{ height: '1px' }}></div>
             <div className="mt-2 mb-4 text-center text-white">Continue As</div>
-            <div>
-               <GoogleSignIn />
+            <div className="flex flex-col items-center">
+               <GoogleSignIn setLogin={setLogin} />
             </div>
             <p className="text-center text-gray-300 mt-6">
                Don't have an account?{' '}

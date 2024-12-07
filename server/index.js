@@ -13,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(cors({ origin: "http://localhost:5000" })); // Update frontend URL if necessary
-app.use(cors({ origin: "http://localhost:5173" }));
+// app.use(cors({ origin: "http://localhost:5000" })); // Update frontend URL if necessary
+// app.use(cors({ origin: "http://localhost:5173" }));
 
 // Database Connection
 mongoose
