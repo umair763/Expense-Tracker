@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Registration from './Registration';
-import GoogleSignIn from './GoogleSignIn';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ setLogin }) {
@@ -29,7 +27,6 @@ function Login({ setLogin }) {
          const token = localStorage.getItem('token');
          if (token) {
             try {
-               // Validate the token with the backend
                const response = await fetch('http://localhost:5000/api/users/login', {
                   method: 'GET',
                   headers: {
@@ -127,7 +124,7 @@ function Login({ setLogin }) {
             <div className="w-full bg-white mt-6" style={{ height: '1px' }}></div>
             <div className="mt-2 mb-4 text-center text-white">Continue As</div>
             <div className="flex flex-col items-center">
-               <GoogleSignIn setLogin={setLogin} />
+               {/* Include GoogleSignIn component for Google authentication */}
             </div>
             <p className="text-center text-gray-300 mt-6">
                Don't have an account?{' '}

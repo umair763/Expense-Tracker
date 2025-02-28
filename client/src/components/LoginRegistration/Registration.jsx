@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import GoogleSignIn from './GoogleSignIn';
 import { useNavigate } from 'react-router-dom';
+import GoogleSignIn from './GoogleSignIn';
 
-// Updated ProfileImageUploader to properly pass the selected image to the parent component
 const ProfileImageUploader = ({ setImage }) => {
    const [selectedImage, setSelectedImage] = useState(null);
 
@@ -11,6 +10,7 @@ const ProfileImageUploader = ({ setImage }) => {
          const file = e.target.files[0];
          setSelectedImage(URL.createObjectURL(file)); // Preview the image
          setImage(file); // Pass the file to the parent component
+         console.log('image passed');
       }
    };
 
@@ -52,42 +52,53 @@ const ProfileImageUploader = ({ setImage }) => {
 };
 
 function Registration({ setLogin }) {
+   const [image, setImage] = useState(null); 
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const [image, setImage] = useState(null); // Image file to send to backend
    const [error, setError] = useState('');
+   const [success, setSuccess] = useState('');
    const navigate = useNavigate();
 
-   const handleRegister = async (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
-      if (!name || !email || !password) {
-         setError('All fields are required.');
+      setError('');
+      setSuccess('');
+
+      // Check if all fields are filled before submitting
+      if (!name || !email || !password || !image) {
+         setError('Please fill in all the fields.');
          return;
       }
-      try {
-         const formData = new FormData();
-         formData.append('name', name);
-         formData.append('email', email);
-         formData.append('password', password);
-         if (image) {
-            formData.append('image', image); // Include the image file
-         }
-         console.log('Form Data:', formData); // Debugging line
 
+      // Prepare FormData for the multipart form submission
+      const formData = new FormData();
+      formData.append('image', image); 
+      formData.append('name', name); 
+      formData.append('email', email);
+      formData.append('password', password);
+
+      try {
          const response = await fetch('http://localhost:5000/api/users/register', {
             method: 'POST',
-            body: formData,
+            body: formData, // Send the formData
          });
 
          const data = await response.json();
+
          if (response.ok) {
-            navigate('/');
+            setSuccess('Registration successful!');
+            setTimeout(() => (window.location.href = '/'), 2000);
          } else {
-            setError(data.message || 'Failed to register. Try again.');
+            // Provide detailed error messages based on the response
+            if (data.message) {
+               setError(data.message);
+            } else {
+               setError('Registration failed. Please check your inputs.');
+            }
          }
       } catch (err) {
-         setError('Server error. Please try again.');
+         setError('An error occurred. Please try again.');
       }
    };
 
@@ -99,7 +110,7 @@ function Registration({ setLogin }) {
          <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-lg p-8 w-96">
             <h2 className="text-white text-2xl font-bold text-center mb-6">Registration</h2>
             <ProfileImageUploader setImage={setImage} />
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleSubmit}>
                {/* Name Field */}
                <div className="mb-4">
                   <label className="sr-only" htmlFor="username">
@@ -113,6 +124,7 @@ function Registration({ setLogin }) {
                         onChange={(e) => setName(e.target.value)}
                         className="w-full py-2 px-4 bg-white/20 text-white placeholder-gray-300 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                      />
+
                      <span className="absolute inset-y-0 right-4 flex items-center text-gray-400">
                         <i className="fas fa-user"></i>
                      </span>

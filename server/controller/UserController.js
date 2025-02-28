@@ -3,18 +3,12 @@ const User = require("../model/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const axios = require("axios");
 const { OAuth2Client } = require("google-auth-library");
+const fetch = require("node-fetch");
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
-
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-
 const oauthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
-
-// Google Sign-In Handler// Google Sign-In Handler
-// Required for fetching images
-const fetch = require("node-fetch");
 
 // Google Sign-In Handler
 exports.googleSignIn = async (req, res) => {
@@ -65,7 +59,7 @@ exports.googleSignIn = async (req, res) => {
 	}
 };
 
-// Configure multer
+// Configure multer for image uploads
 const upload = multer({
 	storage: multer.memoryStorage(),
 	limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max size
@@ -75,7 +69,7 @@ const upload = multer({
 		}
 		cb(null, true);
 	},
-}).single("image");
+}).single("image"); // Ensure field name matches frontend
 
 // Register a new user
 exports.registerUser = async (req, res) => {
@@ -88,28 +82,33 @@ exports.registerUser = async (req, res) => {
 		try {
 			const { name, email, password } = req.body;
 
+			// Validate required fields
 			if (!name || !email || !password) {
-				return res.status(400).json({ message: "Email and password are required." });
+				return res.status(400).json({ message: "Email, name, and password are required." });
 			}
 
+			// Check if the email is already used
 			const existingUser = await User.findOne({ email });
 			if (existingUser) {
 				return res.status(400).json({ message: "Email already in use." });
 			}
 
+			// Hash the password
 			const salt = await bcrypt.genSalt(10);
 			const hashedPassword = await bcrypt.hash(password, salt);
 
 			let base64Image = null;
 			if (req.file) {
+				// If an image file is uploaded, convert to base64
 				base64Image = req.file.buffer.toString("base64");
 			}
 
+			// Create new user
 			const newUser = new User({
 				name,
 				email,
 				password: hashedPassword,
-				image: base64Image,
+				image: base64Image, // Store the base64 image in the database
 			});
 
 			await newUser.save();
@@ -125,23 +124,18 @@ exports.registerUser = async (req, res) => {
 // Login user
 exports.loginUser = async (req, res) => {
 	try {
-		const { name, email, password } = req.body;
+		const { email, password } = req.body;
 
-		// Check if user exists
 		const user = await User.findOne({ email });
 		if (!user) {
-			console.log("User not found:", email); // Debugging
 			return res.status(401).json({ message: "Invalid email or password" });
 		}
 
-		// Compare the password
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
-			console.log("Password mismatch for email:", email); // Debugging
 			return res.status(401).json({ message: "Invalid email or password" });
 		}
 
-		// Generate a JWT
 		const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "7d" });
 
 		res.status(200).json({
@@ -149,7 +143,7 @@ exports.loginUser = async (req, res) => {
 			user: { id: user._id, name: user.name, email: user.email },
 		});
 	} catch (error) {
-		console.error("Error during login:", error); // Debugging
+		console.error("Error during login:", error);
 		res.status(500).json({ message: "Server error", error: error.message });
 	}
 };

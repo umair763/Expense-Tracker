@@ -18,7 +18,6 @@ function GoogleSignIn({ setLogin }) {
             name: decodedToken.name, // Mapping name from Google to 'name'
             email: decodedToken.email,
             picture: decodedToken.picture, // Google profile image
-            password: decodedToken.password, // Temporary password
          };
 
          console.log('Sending User Data:', userData);
