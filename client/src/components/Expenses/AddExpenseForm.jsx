@@ -25,7 +25,7 @@ const categories = {
       'Dental Care',
       'Vision Care',
    ],
-   PersonaCare: ['Haircuts and Styling', 'Personal Care Products', 'Clothing and Footwear'],
+   PersonalCare: ['Haircuts and Styling', 'Personal Care Products', 'Clothing and Footwear'], // Fixed typo from "PersonaCare" to "PersonalCare"
    Entertainment: ['Streaming Services', 'Cable or Satellite TV', 'Hobbies and Interests', 'Movies and Theater'],
    Education: ['Tuition Fees', 'Books and Supplies', 'Student Loans'],
    FinancialObligations: ['Credit Card Payments', 'Loans', 'Savings', 'Retirement Savings'],
@@ -37,7 +37,6 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
       category: '',
       item: '',
       amount: '',
-      date: '',
       recordedDate: '',
    });
 
@@ -46,14 +45,55 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
       setFormData({ ...formData, [name]: value });
    };
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
-      onSubmit(formData);
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+         console.error('No token found in localStorage.');
+         alert('You need to be logged in to add an expense.');
+         return;
+      }
+
+      console.log('Token being sent from frontend:', token); // Debugging log
+
+      const expenseData = {
+         category: formData.category,
+         item: formData.item,
+         amount: formData.amount,
+         recordedDate: formData.recordedDate,
+      };
+
+      try {
+         const response = await fetch('http://localhost:5000/api/expenses/add', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+               Authorization: `Bearer ${token}`, // Send token with the 'Authorization' header
+            },
+            body: JSON.stringify(expenseData),
+         });
+
+         const data = await response.json();
+
+         if (response.ok) {
+            console.log('Expense added successfully', data);
+            alert('Expense added successfully');
+            onSubmit(); // Calls the onSubmit function passed via props
+            onClose(); // Calls the onClose function passed via props to close the modal
+         } else {
+            console.error('Error response from server:', data);
+            alert(data.message || 'Failed to add expense');
+         }
+      } catch (error) {
+         console.error('Error during fetch:', error);
+         alert('An error occurred while submitting the form.');
+      }
    };
 
    return (
-      <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center z-50">
-         <div className="bg-white  dark:bg-slate-800 dark:text-white rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+         <div className="bg-white dark:bg-slate-800 dark:text-white rounded-lg shadow-lg p-6 w-11/12 sm:w-3/4 lg:w-1/2">
             <div className="flex justify-between items-center mb-4">
                <h2 className="text-xl font-semibold">Add Expense</h2>
                <button onClick={onClose} className="text-gray-500 hover:text-gray-800 focus:outline-none">
@@ -83,6 +123,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      ))}
                   </select>
                </div>
+
                {formData.category && (
                   <div>
                      <label htmlFor="item" className="block text-sm font-medium mb-1 dark:bg-slate-700">
@@ -107,6 +148,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      </select>
                   </div>
                )}
+
                <div>
                   <label htmlFor="amount" className="block text-sm font-medium mb-1">
                      Amount
@@ -137,6 +179,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
                      required
                   />
                </div>
+
                <div className="flex justify-end gap-4">
                   <button
                      type="button"

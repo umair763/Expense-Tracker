@@ -4,16 +4,31 @@
 │   ├── src
 │   │   ├── assets
 │   │   ├── components
-│   │   │     ├── Dashboard
-│   │   │     ├── Expenses
-│   │   │     ├── LoginRegisteration
-│   │   │     ├── Transaction
-│   │   │     └── MainDashboard.jsx
-│   │   │     └── MainExpenses.jsx
-│   │   │     └── MainTransaction.jsx
-│   │   │     └── SideBar.jsx
-│   │   │     └── ThemeContext.jsx
-│   │   │     └── ThemeToggle.jsx
+│   │   |   ├── Dashboard
+│   │   │   |   └── AvaiableBalanceCard.jsx
+│   │   │   |   └── Catagories.jsx
+│   │   │   |   └── IncomeAndSpendings.jsx
+│   │   │   |   └── MonthlyReportBarGraph.jsx
+│   │   │   |   └── TrackFinance.jsx
+│   │   │   |   └── WeeklyReportBarGraph.jsx
+│   │   |   ├── Expenses
+│   │   │   |   └── AddExpenseAndReport.jsx
+│   │   │   |   └── AddExpenseForm.jsx
+│   │   │   |   └── ExpenseRecord.jsx
+│   │   |   ├── LoginRegisteration
+│   │   │   |   └── GogoleSignin.jsx
+│   │   │   |   └── Login.jsx
+│   │   │   |   └── Registeration.jsx
+│   │   |   ├── Transactions
+│   │   │   |   └── AddTransactionAndReport.jsx
+│   │   │   |   └── AddTransactionForm.jsx
+│   │   │   |   └── TransactionReport.jsx
+│   │   │   └── MainDashboard.jsx
+│   │   │   └── MainExpenses.jsx
+│   │   │   └── MainTransaction.jsx
+│   │   │   └── SideBar.jsx
+│   │   │   └── ThemeContext.jsx
+│   │   │   └── ThemeToggle.jsx
 │   │   └── App.css
 │   │   └── App.jsx
 │   │   └── index.css

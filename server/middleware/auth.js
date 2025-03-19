@@ -1,24 +1,23 @@
-const jwt = require("jsonwebtoken");
+// server/middleware/auth.js
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-function authenticator(req, res, next) {
-	const authHeader = req.headers.authorization;
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // Ensure it matches
 
-	// Ensure the token is available
-	if (!authHeader || !authHeader.startsWith("Bearer ")) {
-		return res.status(401).json({ message: "Unauthorized: No token provided" });
+const authenticator = (req, res, next) => {
+	const token = req.headers.authorization?.split(" ")[1]; // Extract token from the Authorization header
+	if (!token) {
+		return res.status(403).json({ message: "Access denied. No token provided." });
 	}
 
-	const token = authHeader.split(" ")[1]; // Extract token from 'Bearer <token>'
+	try {
+		const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token
+		req.userId = decoded.userId; // Add the userId from the token to the request
+		next(); // Proceed to the next middleware/route handler
+	} catch (error) {
+		return res.status(400).json({ message: "Invalid token." });
+	}
+};
 
-	jwt.verify(token, process.env.JWT_SECRET || "your_secret_key", (err, decoded) => {
-		if (err) {
-			return res.status(401).json({ message: "Invalid token" });
-		}
-
-		// Set the userId in the request object
-		req.user = decoded.userId;
-		next();
-	});
-}
-
-module.exports = authenticator;
+export default authenticator;

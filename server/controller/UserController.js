@@ -1,17 +1,30 @@
 // server/controllers/UserControllers.js
-const User = require("../model/UserModel");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const multer = require("multer");
-const { OAuth2Client } = require("google-auth-library");
-const fetch = require("node-fetch");
+import User from "../model/UserModel.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import multer from "multer";
+import { OAuth2Client } from "google-auth-library";
+import fetch from "node-fetch";
+import dotenv from "dotenv";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key"; // JWT Secret from .env
+
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const oauthClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
+// Function to generate JWT token
+const generateToken = (userId) => {
+	return jwt.sign(
+		{ userId }, // Payload containing the userId
+		JWT_SECRET, // Secret key from environment variables
+		{ expiresIn: "7d" } // Token expiration time (7 days)
+	);
+};
+
 // Google Sign-In Handler
-exports.googleSignIn = async (req, res) => {
+export const googleSignIn = async (req, res) => {
 	const { name, email, picture } = req.body;
 
 	// Fetch the profile image and convert it to base64
@@ -25,33 +38,26 @@ exports.googleSignIn = async (req, res) => {
 	}
 
 	try {
-		// Check if user already exists with this email
 		let user = await User.findOne({ email });
 
 		if (!user) {
-			// Create a new user with Google info
+			// New user
 			user = new User({
-				name: name,
-				email: email,
-				password: await bcrypt.hash("tempPassword123", 10), // Temporary password
-				picture: base64Picture,
+				name,
+				email,
+				password: await bcrypt.hash("tempPassword123", 10), // Temporary password for Google login
+				picture,
 			});
-
-			// Save user to the database
 			await user.save();
 		}
 
 		// Generate JWT token
-		const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1d" });
+		const jwtToken = generateToken(user._id);
 
 		return res.status(200).json({
 			message: "User authenticated successfully",
 			token: jwtToken,
-			user: {
-				name: user.name,
-				email: user.email,
-				picture: user.picture,
-			},
+			user: { name: user.name, email: user.email, picture: user.picture },
 		});
 	} catch (error) {
 		console.error("Error during Google sign-in:", error);
@@ -72,7 +78,7 @@ const upload = multer({
 }).single("image"); // Ensure field name matches frontend
 
 // Register a new user
-exports.registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
 	upload(req, res, async (err) => {
 		if (err) {
 			console.error("Error uploading file:", err.message);
@@ -99,7 +105,6 @@ exports.registerUser = async (req, res) => {
 
 			let base64Image = null;
 			if (req.file) {
-				// If an image file is uploaded, convert to base64
 				base64Image = req.file.buffer.toString("base64");
 			}
 
@@ -113,7 +118,14 @@ exports.registerUser = async (req, res) => {
 
 			await newUser.save();
 
-			return res.status(201).json({ message: "User registered successfully." });
+			// Generate JWT token for the new user
+			const token = generateToken(newUser._id);
+
+			return res.status(201).json({
+				message: "User registered successfully.",
+				token,
+				user: { id: newUser._id, name: newUser.name, email: newUser.email },
+			});
 		} catch (error) {
 			console.error("Registration error:", error.message);
 			return res.status(500).json({ message: "Server error. Please try again." });
@@ -122,22 +134,26 @@ exports.registerUser = async (req, res) => {
 };
 
 // Login user
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
 	try {
 		const { email, password } = req.body;
 
+		// Find user by email
 		const user = await User.findOne({ email });
 		if (!user) {
 			return res.status(401).json({ message: "Invalid email or password" });
 		}
 
+		// Compare passwords
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch) {
 			return res.status(401).json({ message: "Invalid email or password" });
 		}
 
-		const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "7d" });
+		// Generate JWT token for the user
+		const token = generateToken(user._id);
 
+		// Return the token and user data in the response
 		res.status(200).json({
 			token,
 			user: { id: user._id, name: user.name, email: user.email },
