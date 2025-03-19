@@ -4,8 +4,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import { OAuth2Client } from "google-auth-library";
-import fetch from "node-fetch";
+// Removed unused fetch import
 import dotenv from "dotenv";
+import axios from "axios"; // Required for fetching the profile image
 
 dotenv.config();
 
@@ -25,43 +26,48 @@ const generateToken = (userId) => {
 
 // Google Sign-In Handler
 export const googleSignIn = async (req, res) => {
-	const { name, email, picture } = req.body;
-
-	// Fetch the profile image and convert it to base64
-	const response = await fetch(picture);
-	const imageBuffer = await response.buffer();
-	const base64Picture = imageBuffer.toString("base64");
-
-	// Check if necessary fields are provided
-	if (!name || !email || !picture) {
-		return res.status(400).json({ error: "Missing required fields (name, email, picture)" });
-	}
-
 	try {
+		const { token } = req.body;
+		if (!token) return res.status(400).json({ message: "Google token is required" });
+
+		// Verify Google Token
+		const ticket = await oauthClient.verifyIdToken({
+			idToken: token,
+			audience: GOOGLE_CLIENT_ID,
+		});
+
+		const payload = ticket.getPayload();
+		const { email, name, picture } = payload;
+
+		// Fetch and convert Google Profile Image to Base64
+		const imageResponse = await axios.get(picture, { responseType: "arraybuffer" });
+		const base64Image = Buffer.from(imageResponse.data, "binary");
+
+		// Check if user already exists
 		let user = await User.findOne({ email });
 
 		if (!user) {
-			// New user
 			user = new User({
 				name,
 				email,
+				image: base64Image, // Store image in MongoDB
 				password: await bcrypt.hash("tempPassword123", 10), // Temporary password for Google login
-				picture,
 			});
+
 			await user.save();
 		}
 
-		// Generate JWT token
+		// Generate JWT Token
 		const jwtToken = generateToken(user._id);
 
-		return res.status(200).json({
-			message: "User authenticated successfully",
+		res.status(200).json({
+			message: "Google Sign-In successful",
 			token: jwtToken,
-			user: { name: user.name, email: user.email, picture: user.picture },
+			user: { name: user.name, email: user.email, image: user.image },
 		});
 	} catch (error) {
-		console.error("Error during Google sign-in:", error);
-		return res.status(500).json({ error: "Failed to authenticate user" });
+		console.error("Google Sign-In Error:", error);
+		res.status(500).json({ message: "Failed to authenticate user", error: error.message });
 	}
 };
 
@@ -69,7 +75,7 @@ export const googleSignIn = async (req, res) => {
 const upload = multer({
 	storage: multer.memoryStorage(),
 	limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max size
-	fileFilter: (req, file, cb) => {
+	fileFilter: (_, file, cb) => {
 		if (!file.mimetype.startsWith("image/")) {
 			return cb(new Error("Invalid file type. Only image files are allowed."), false);
 		}

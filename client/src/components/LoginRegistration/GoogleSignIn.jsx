@@ -3,37 +3,20 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
 function GoogleSignIn({ setLogin }) {
-   // GoogleSignIn.js
    const handleLoginSuccess = async (response) => {
-      const { credential } = response;
-
       try {
-         // Decode Google token
-         const decodedToken = JSON.parse(atob(credential.split('.')[1]));
+         const { credential } = response;
 
-         console.log('Decoded Google Token:', decodedToken);
+         // Send Google token to backend
+         const res = await axios.post('http://localhost:5000/api/users/google-signin', { token: credential });
 
-         // User data (matching backend schema)
-         const userData = {
-            name: decodedToken.name, // Mapping name from Google to 'name'
-            email: decodedToken.email,
-            picture: decodedToken.picture, // Google profile image
-         };
-
-         console.log('Sending User Data:', userData);
-
-         // Send user data to backend to create user and generate JWT
-         const backendResponse = await axios.post('http://localhost:5000/api/users/google-signin', userData);
-
-         console.log('User saved successfully:', backendResponse.data);
-
-         // On success, set the login state to true
+         // Store JWT Token in Local Storage
+         localStorage.setItem('token', res.data.token);
          setLogin(true);
 
-         // Store the token in localStorage for future requests
-         localStorage.setItem('token', backendResponse.data.token);
+         console.log('Google Sign-In successful:', res.data);
       } catch (error) {
-         console.error('Error during Google login:', error);
+         console.error('Google Sign-In failed:', error.response?.data?.message || error.message);
       }
    };
 
@@ -42,7 +25,7 @@ function GoogleSignIn({ setLogin }) {
    };
 
    return (
-      <div className="pt-1">
+      <div className="pt-2">
          <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginFailure} />
       </div>
    );
