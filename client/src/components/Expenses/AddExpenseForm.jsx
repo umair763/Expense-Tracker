@@ -79,7 +79,7 @@ const AddExpenseForm = ({ onClose, onSubmit }) => {
          if (response.ok) {
             console.log('Expense added successfully', data);
             alert('Expense added successfully');
-            onSubmit(); // Calls the onSubmit function passed via props
+
             onClose(); // Calls the onClose function passed via props to close the modal
          } else {
             console.error('Error response from server:', data);
