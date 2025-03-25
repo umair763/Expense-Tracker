@@ -13,11 +13,13 @@ const app = express();
 app.use(express.json());
 
 // Allow your frontend's origin
-app.use(cors({
-  origin: 'http://localhost:5173', // Adjust according to your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+	cors({
+		origin: "http://localhost:5173", // Adjust according to your frontend URL
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		allowedHeaders: ["Content-Type", "Authorization"],
+	})
+);
 
 // app.use(cors(corsOptions));
 // app.use(cors(corsOptions));

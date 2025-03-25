@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-	image: { type: Buffer }, // Store image as Buffer in MongoDB
+	image: {
+		type: String, // Change to String to store base64 image
+		default: null,
+	},
 	name: { type: String, required: true },
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
