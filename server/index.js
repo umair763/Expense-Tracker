@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import userRoutes from "./routes/UserRoutes.js";
 import expenseRoutes from "./routes/ExpenseRoutes.js";
+import transactionRoutes from "./routes/TransactionRoutes.js";
 
 dotenv.config(); // This will load variables from your .env file
 
@@ -21,9 +22,6 @@ app.use(
 	})
 );
 
-// app.use(cors(corsOptions));
-// app.use(cors(corsOptions));
-
 // Database Connection
 mongoose
 	.connect(process.env.MONGO_URI)
@@ -33,6 +31,7 @@ mongoose
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api", transactionRoutes); // Ensure this is correctly mounted
 
 // Start Server
 const PORT = process.env.PORT || 5000;
