@@ -8,9 +8,9 @@ const SideBar = () => {
    const [activeTab, setActiveTab] = useState('dashboard');
 
    useEffect(() => {
-      const userData = localStorage.getItem('user');
+      const userData = localStorage.getItem('user'); // Fetch user data from localStorage
       if (userData) {
-         setUser(JSON.parse(userData));
+         setUser(JSON.parse(userData)); // Set user data including image
       } else {
          fetchUserProfile();
       }
@@ -30,7 +30,7 @@ const SideBar = () => {
          if (response.ok) {
             const data = await response.json();
             setUser(data.user);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('user', JSON.stringify(data.user)); // Store user data in localStorage
          }
       } catch (error) {
          console.error('Error fetching user profile:', error);
@@ -47,6 +47,7 @@ const SideBar = () => {
       setActiveTab(tab);
       navigate(path);
    };
+
    return (
       <div className="h-full flex flex-col justify-between bg-[#5586a5] text-slate-950 dark:text-white dark:bg-slate-800">
          <div className="flex flex-col items-center mt-8">

@@ -10,8 +10,10 @@ function GoogleSignIn({ setLogin }) {
          // Send Google token to backend
          const res = await axios.post('http://localhost:5000/api/users/google-signin', { token: credential });
 
-         // Store JWT Token in Local Storage
+         // Store JWT Token and User data (including image) in Local Storage
          localStorage.setItem('token', res.data.token);
+         localStorage.setItem('user', JSON.stringify(res.data.user)); // Save user data
+
          setLogin(true);
 
          console.log('Google Sign-In successful:', res.data);
